@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="kdg-container">
+            <div class="kdg-row va-m">
+                <div class="kdg-col-5">
+                    <div class="logo">
+                        <img src="./images/logo-header.svg" alt="">
+                        <h3 class="logo-text bold">KING INVESTMENTS FUND</h3>
+                    </div>
+                </div>
+                <div class="kdg-col-6">
+                    <ul class="menu">
+                        <li><a href="#">Tìm hiểu thêm về kif tại đây</a></li>
+                        <li><a href="#" id="login">ĐĂNG NHẬP</a></li>
+                        <li><a href="#" class="button" id="signup">ĐĂNG KÝ</a></li>
+                    </ul>
+                </div>
+                <div class="kdg-col-1">
+                    <div class="current-language">
+                        <span>VN</span>
+                        <ul class="chooselanguage">
+                            <li>VN</li>
+                            <li>EN</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="kdg-col-7 content">
+                    <h1 class="bold">YOUR TRUST - OUR FUTURE</h1>
+                    <h6>Bạn muốn đầu tư? Bạn đang băn khoăn chưa biết đầu tư vào lĩnh vực nào? Đầu tư vào lĩnh vực nào? King Investments Fund luôn sẵn sàng hỗ trợ, tư vấn và cung cấp cho bạn giải pháp tối ưu nhất.</h6>
+                    <span class="button">
+                        ĐẦU TƯ NGAY
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="calc">
+        <div class="kdg-container">
+            <div class="kdg-row va-b">
+                <div class="kdg-col-1">
+                    <img src="/images/calculator.svg" alt="">
+                </div>
+                <div class="kdg-col-5">
+                    <h5 class="text-input">Nhập số tiền đầu tư</h5>
+                    <div class="input-number">
+                        <input value="1000" onkeyup="handleInputCalc(this)" id="input-number" type="number">
+                        <div class="button light">Tính toán</div>
+                    </div>
+                </div>
+                <div class="kdg-col-6 calc-profit">
+                    <div class="kdg-row kdg-column-3 text-c">
+                        <div class="item">
+                            <div id="perday">500</div>
+                            <p>Lợi nhuận mỗi ngày</p>
+                        </div>
+                        <div class="item">
+                            <div id="perweek">500</div>
+                            <p>Lợi nhuận tuần</p>
+                        </div>
+                        <div class="item">
+                            <div id="permonth">500</div>
+                            <p>Lợi nhuận tháng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap">
+        <div class="title">
+            <h4></h4>
+        </div>
+    </section>
+</body>
+
+<script src="./js/main.js"></script>
+</html>
