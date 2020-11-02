@@ -30,3 +30,35 @@ window.onload = function () {
     }
     showlanguage()
 }
+
+// Slider
+let slider = document.querySelector('.slider')
+let listItems = Array.from(slider.querySelectorAll('.item'))
+let widthSlider = 0;
+let listItemData = listItems.map(item => {
+    widthSlider += item.offsetWidth
+    item.style.width = item.offsetWidth + 'px'
+    return {
+        itemElement: item,
+        itemWidth: item.offsetWidth
+    }
+})
+slider.style.width = widthSlider + 'px'
+let btnNext = slider.parentElement.parentElement.querySelector('.next')
+let btnPrev = slider.parentElement.parentElement.querySelector('.prev')
+let currentSlider = 0
+let widthTransform = 0
+btnNext.addEventListener('click', e => {
+    if (currentSlider < listItemData.length - 1) {
+        widthTransform += (-1) * listItemData[currentSlider].itemWidth
+        slider.style.transform = `translateX(${widthTransform}px)`
+        currentSlider++
+    }
+})
+btnPrev.addEventListener('click', e => {
+    if (currentSlider > 0) {
+        widthTransform -= (-1) * listItemData[currentSlider].itemWidth
+        slider.style.transform = `translateX(${widthTransform}px)`
+        currentSlider--
+    }
+})
