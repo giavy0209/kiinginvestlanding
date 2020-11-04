@@ -67,3 +67,30 @@ btnPrev.addEventListener('click', e => {
         currentSlider--
     }
 })
+
+// Language
+let languages = document.querySelectorAll('.language .lang')
+languages.forEach(lang => {
+    lang.addEventListener('click', e => {
+        let currentElement = e.target
+        currentElement.parentElement.querySelector('[class*=active]').classList.remove('active')
+        if (currentElement.getAttribute('data-lang').toLowerCase() === currentElement.innerText.toLowerCase())
+        currentElement.classList.add('active')
+    })
+})
+
+// Show Menu
+document.querySelector('.menu-icon').addEventListener('click', e => {
+    let menuPage = document.querySelector('.menu-page')
+    menuPage.classList.add('show-menu')
+})
+
+// Close Menu
+let menuPage = document.querySelector('.menu-page')
+menuPage.querySelector('.close-icon').addEventListener('click', e => {
+    menuPage.classList.remove('show-menu')
+})
+document.addEventListener('keyup', e => {
+    if (e.key === 'Escape')
+    menuPage.classList.remove('show-menu')
+})
