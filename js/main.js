@@ -1,17 +1,21 @@
 var handleInputCalc = function (ele) {
-    var input = document.getElementById('input-number')
     var perday = document.getElementById('perday')
     var perweek = document.getElementById('perweek')
     var permonth = document.getElementById('permonth')
     var value = Number(ele.value)
-    console.log(value);
+    // console.log(value);
     perday.innerText = '$'+(value * 0.004).toFixed(2)
     perweek.innerText = '$'+(value * 0.004 * 7).toFixed(2)
     permonth.innerText = '$'+(value * 0.004 * 30).toFixed(2)
 }
 window.onload = function () {
     var currentLanguage = document.querySelector('.current-language')
-    handleInputCalc(document.getElementById('input-number'))
+    let inputCalc = document.getElementById('input-number')
+    handleInputCalc(inputCalc)
+
+    inputCalc.addEventListener('focus', e => {
+        e.target.value = ''
+    })
 
     document.addEventListener('click', e => {
         if
@@ -60,6 +64,23 @@ btnNext.addEventListener('click', e => {
     }
 })
 btnPrev.addEventListener('click', e => {
+    if (currentSlider > 0) {
+        widthTransform -= (-1) * listItemData[currentSlider].itemWidth
+        slider.style.transform = `translateX(${widthTransform}px)`
+        currentSlider--
+    }
+})
+
+let btnNext1 = slider.parentElement.parentElement.querySelector('.control-slider1 .next')
+let btnPrev1 = slider.parentElement.parentElement.querySelector('.control-slider1 .prev')
+btnNext1.addEventListener('click', e => {
+    if (currentSlider < listItemData.length - 1) {
+        widthTransform += (-1) * listItemData[currentSlider].itemWidth
+        slider.style.transform = `translateX(${widthTransform}px)`
+        currentSlider++
+    }
+})
+btnPrev1.addEventListener('click', e => {
     if (currentSlider > 0) {
         widthTransform -= (-1) * listItemData[currentSlider].itemWidth
         slider.style.transform = `translateX(${widthTransform}px)`

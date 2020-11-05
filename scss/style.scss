@@ -52,6 +52,7 @@
             text-align: center;
             margin-top: 10px;
         }
+
         @media (min-width: 768px) {
             .logo {
                 width: 83px;
@@ -460,6 +461,12 @@
             >div {
                 font-size: $font2;
             }
+
+            p {
+                font-size: 14px;
+                font-weight: 300;
+            }
+
         }
     }
 
@@ -521,6 +528,7 @@
                 >div {
                     font-size: 20px;
                 }
+
             }
         }
 
@@ -552,7 +560,7 @@
     background-image: linear-gradient(to bottom, #007676, #005668);
 
     .period-part {
-        padding: 0 65px;
+        padding: 0 25px;
     }
 
     .circle-box {
@@ -656,13 +664,7 @@
 
     @media (max-width: 1300px) {
         .period-part {
-            padding: 0 45px;
-        }
-    }
-
-    @media (max-width: 1247px) {
-        .period-part {
-            padding: 0 10px;
+            padding: 0;
         }
     }
 
@@ -674,10 +676,6 @@
             &:last-child {
                 margin-bottom: 0;
             }
-        }
-
-        .period-part {
-            padding: 0 15px;
         }
     }
 
@@ -694,11 +692,7 @@
     // @media (max-width: 576px) {
     // }
 
-    @media (max-width: 335px) {
-        .period-part {
-            padding: 0;
-        }
-    }
+    @media (max-width: 335px) {}
 }
 
 #history {
@@ -897,6 +891,10 @@
             text-transform: uppercase;
         }
 
+        .address-info {
+            font-size: 14px;
+        }
+
         .mail {
             word-break: break-all;
         }
@@ -930,6 +928,10 @@
             &:hover {
                 opacity: .7;
             }
+        }
+
+        a[href="#"] {
+            pointer-events: none;
         }
     }
 
@@ -1094,4 +1096,68 @@
 .slider .item img {
     display: block;
     margin: 0 auto;
+}
+
+.control-slider1 {
+
+    .prev,
+    .next {
+        padding: 10px;
+        cursor: pointer;
+        user-select: none;
+        opacity: .5;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        img {
+            width: 20px;
+        }
+    }
+
+    .prev {
+        position: absolute;
+        top: 40px;
+        left: 50px;
+    }
+
+    .next {
+        position: absolute;
+        top: 40px;
+        right: 50px;
+    }
+
+    @media (max-width: 992px) {
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .control-slider1 {
+
+        .prev,
+        .next {
+            display: none;
+        }
+    }
+
+    .hover-control-slider:hover {
+
+        .control-slider1 {
+
+            .prev,
+            .next {
+                display: block;
+                pointer-events: auto;
+            }
+        }
+    }
 }
