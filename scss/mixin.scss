@@ -69,3 +69,21 @@ p {
         font-weight: 600
     }
 }
+
+.title {
+
+    h4 {
+        text-transform: capitalize;
+        margin-bottom: 9px;
+        font-weight: bold;
+        color: #FFF;
+        text-align: center;
+    }
+
+    .hr {
+        width: 114px;
+        height: 3px;
+        margin: 0 auto;
+        background-image: linear-gradient(to right, #4EC365, #467FCE);
+    }
+}

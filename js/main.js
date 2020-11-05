@@ -1,5 +1,4 @@
 var handleInputCalc = function (ele) {
-    // debugger;
     var input = document.getElementById('input-number')
     var perday = document.getElementById('perday')
     var perweek = document.getElementById('perweek')
