@@ -3,11 +3,12 @@ var handleInputCalc = function (ele) {
     var perweek = document.getElementById('perweek')
     var permonth = document.getElementById('permonth')
     var value = Number(ele.value)
+    // console.log(value);
     perday.innerText = '$'+(value * 0.004).toFixed(2)
     perweek.innerText = '$'+(value * 0.004 * 7).toFixed(2)
     permonth.innerText = '$'+(value * 0.004 * 30).toFixed(2)
 }
-var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , duration = 300) {
+var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , duration) {
     return new Promise (function(resolve) {
         var scrollLengthX = endX - startX
         var scrollLengthY = endY - startY
@@ -25,6 +26,7 @@ var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , d
                 clearInterval(interval)
                 resolve()
             }
+
         }, 10);
     })
 }
@@ -72,6 +74,7 @@ var sliderNextButton = document.querySelector('#feel .next')
 
 var removeAllActive = function(list){
     list.forEach(function(el){
+        console.log(el);
         el.classList.remove('active')
     })
 }
@@ -80,6 +83,7 @@ var setSliderWithCurrentActive = function (newCurrentActive, listPaginationSlide
     var totalScroll = Math.abs(newCurrentActive - currentActive)
     var sliderWidth = blockSilder.querySelector('.item').offsetWidth
     var endX = newCurrentActive * sliderWidth
+    console.log(endX,trackSlider.scrollLeft);
     removeAllActive(listPaginationSlider)
     listPaginationSlider[newCurrentActive].classList.add('active')
     sliderPrevButton.style.pointerEvents = 'none'
