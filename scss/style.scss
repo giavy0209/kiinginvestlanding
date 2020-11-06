@@ -23,18 +23,39 @@
     }
 
     .menu-page {
-        display: none;
         position: fixed;
         top: 0;
         left: 0;
-        right: 0;
         bottom: 0;
         background-color: #00807E;
         padding-top: 60px;
-        min-height: 480px;
-
+        transition: all .3s ease;
+        transform: translate(-100% , 0);
+        height: 100vh;
+        width: 70vw;
+        @media only screen and (max-width : 380px){
+            width: 100vw;
+        }
+        .mask{
+            position: absolute;
+            top: 50%;
+            bottom: 50%;
+            right: 0;
+            width: 0;
+            background-color: rgba(0, 0, 0, .3);
+            transform: translate(100% , 0);
+            transition: all .3s ease;
+        }
         &.show-menu {
-            display: block;
+            transform: translate(0% , 0);    
+            .mask{
+                width: 30vw;
+                top : 0;
+                bottom: 0;
+                @media only screen and (max-width : 380px){
+                    width: 0;
+                }
+            }
         }
 
         .logo {
@@ -1059,8 +1080,7 @@
     text-align: center;
 }
 
-.control-slider .next,
-.control-slider .prev {
+.control-slider .pagination-silder button {
     border: 1px solid black;
     background-color: #8A8C8E;
     cursor: pointer;
@@ -1068,11 +1088,10 @@
     height: 12px;
     border-radius: 100%;
     margin: 0 2px;
-}
-
-.control-slider .next:hover,
-.control-slider .prev:hover {
-    background-color: #FDE428;
+    transition: all .3s ease;
+    &:hover,&.active{
+        background-color: #FDE428;
+    }
 }
 
 .slider {

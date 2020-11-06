@@ -8,6 +8,28 @@ var handleInputCalc = function (ele) {
     perweek.innerText = '$'+(value * 0.004 * 7).toFixed(2)
     permonth.innerText = '$'+(value * 0.004 * 30).toFixed(2)
 }
+var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , duration) {
+    return new Promise (function(resolve) {
+        var scrollLengthX = endX - startX
+        var scrollLengthY = endY - startY
+
+        var startTime = new Date().getTime()
+
+        var interval = setInterval(function() {
+            var currTime = new Date().getTime()
+            
+            if(currTime - startTime < duration ){
+                var percentTime = (currTime - startTime) / duration
+                track.scroll(startX + scrollLengthX * percentTime , startY + scrollLengthY * percentTime)
+            }else{
+                track.scroll(endX, endY)
+                clearInterval(interval)
+                resolve()
+            }
+
+        }, 10);
+    })
+}
 window.onload = function () {
     var currentLanguage = document.querySelector('.current-language')
     let inputCalc = document.getElementById('input-number')
@@ -39,78 +61,113 @@ window.onload = function () {
     showlanguage()
 }
 
-// Slider
-let slider = document.querySelector('.slider')
-let listItems = Array.from(slider.querySelectorAll('.item'))
-let widthSlider = 0;
-let listItemData = listItems.map(item => {
-    widthSlider += item.offsetWidth
-    item.style.width = item.offsetWidth + 'px'
-    return {
-        itemElement: item,
-        itemWidth: item.offsetWidth
-    }
-})
-slider.style.width = widthSlider + 'px'
-let btnNext = slider.parentElement.parentElement.querySelector('.next')
-let btnPrev = slider.parentElement.parentElement.querySelector('.prev')
-let currentSlider = 0
-let widthTransform = 0
-btnNext.addEventListener('click', e => {
-    if (currentSlider < listItemData.length - 1) {
-        widthTransform += (-1) * listItemData[currentSlider].itemWidth
-        slider.style.transform = `translateX(${widthTransform}px)`
-        currentSlider++
-    }
-})
-btnPrev.addEventListener('click', e => {
-    if (currentSlider > 0) {
-        widthTransform -= (-1) * listItemData[currentSlider].itemWidth
-        slider.style.transform = `translateX(${widthTransform}px)`
-        currentSlider--
-    }
-})
+//slider
+var currentActive = 0
 
-let btnNext1 = slider.parentElement.parentElement.querySelector('.control-slider1 .next')
-let btnPrev1 = slider.parentElement.parentElement.querySelector('.control-slider1 .prev')
-btnNext1.addEventListener('click', e => {
-    if (currentSlider < listItemData.length - 1) {
-        widthTransform += (-1) * listItemData[currentSlider].itemWidth
-        slider.style.transform = `translateX(${widthTransform}px)`
-        currentSlider++
-    }
-})
-btnPrev1.addEventListener('click', e => {
-    if (currentSlider > 0) {
-        widthTransform -= (-1) * listItemData[currentSlider].itemWidth
-        slider.style.transform = `translateX(${widthTransform}px)`
-        currentSlider--
-    }
-})
+var trackSlider = document.querySelector('#feel .wrapper-slider')
+var blockSilder = document.querySelector('#feel .wrapper-slider .slider')
+var listSlider = Array.from(blockSilder.querySelectorAll('.item'))
 
-// Language
-let languages = document.querySelectorAll('.language .lang')
-languages.forEach(lang => {
-    lang.addEventListener('click', e => {
-        let currentElement = e.target
-        currentElement.parentElement.querySelector('[class*=active]').classList.remove('active')
-        if (currentElement.getAttribute('data-lang').toLowerCase() === currentElement.innerText.toLowerCase())
-        currentElement.classList.add('active')
+var blockPaginationSlider = document.querySelector('#feel .control-slider .pagination-silder')
+var sliderPrevButton = document.querySelector('#feel .prev')
+var sliderNextButton = document.querySelector('#feel .next')
+
+var removeAllActive = function(list){
+    list.forEach(function(el){
+        console.log(el);
+        el.classList.remove('active')
     })
+}
+
+var setSliderWithCurrentActive = function (newCurrentActive, listPaginationSlider) {
+    var totalScroll = Math.abs(newCurrentActive - currentActive)
+    var sliderWidth = blockSilder.querySelector('.item').offsetWidth
+    var endX = newCurrentActive * sliderWidth
+    console.log(endX,trackSlider.scrollLeft);
+    removeAllActive(listPaginationSlider)
+    listPaginationSlider[newCurrentActive].classList.add('active')
+    sliderPrevButton.style.pointerEvents = 'none'
+    sliderNextButton.style.pointerEvents = 'none'
+    listPaginationSlider.forEach(function(el){
+        el.style.pointerEvents = 'none'
+    })
+    smoothSroll(trackSlider, trackSlider.scrollLeft , endX, undefined, undefined , totalScroll * 300)
+    .then(function () {
+        currentActive = newCurrentActive
+        listPaginationSlider.forEach(function(el){
+            el.style.pointerEvents = 'all'
+        })
+        sliderPrevButton.style.pointerEvents = 'all'
+        sliderNextButton.style.pointerEvents = 'all'
+    })
+}
+
+listSlider.forEach(function(el, index) { 
+    var create_pagination_button = document.createElement('button')
+    blockPaginationSlider.append(create_pagination_button)
+
+})
+var blockPaginationSlider = document.querySelector('#feel .control-slider .pagination-silder')
+var listPaginationSlider = Array.from(blockPaginationSlider.querySelectorAll('button'))
+removeAllActive(listPaginationSlider)
+
+listPaginationSlider[currentActive].classList.add('active')
+
+listPaginationSlider.forEach(function(el,index){
+    el.addEventListener('click' , function(e) {
+        setSliderWithCurrentActive(index , listPaginationSlider)
+    })
+})
+sliderPrevButton.addEventListener('click' , function() {
+    setSliderWithCurrentActive(
+        currentActive - 1 >= 0 ? currentActive - 1 : listSlider.length - 1,
+        listPaginationSlider
+    )
+})
+sliderNextButton.addEventListener('click' , function() {
+    setSliderWithCurrentActive(
+        currentActive + 1 < listSlider.length ? currentActive + 1 : 0,
+        listPaginationSlider
+    )
+})
+// Language
+var changeLanguageFunc = function(e) {
+    let currentElement = e.target
+    currentElement.parentElement.querySelector('[class*=active]').classList.remove('active')
+    if (currentElement.getAttribute('data-lang').toLowerCase() === currentElement.innerText.toLowerCase())
+    currentElement.classList.add('active')
+}
+let languages = document.querySelectorAll('.language .lang')
+
+languages.forEach(lang => {
+    lang.addEventListener('click', changeLanguageFunc)
 })
 
 // Show Menu
-document.querySelector('.menu-icon').addEventListener('click', e => {
-    let menuPage = document.querySelector('.menu-page')
+let menuPage = document.querySelector('.menu-page')
+var showMenuButton = document.querySelector('.menu-icon')
+
+var showMenuFunc = function() {
     menuPage.classList.add('show-menu')
+}
+showMenuButton.addEventListener('click', e => {
+    showMenuFunc()
 })
 
 // Close Menu
-let menuPage = document.querySelector('.menu-page')
-menuPage.querySelector('.close-icon').addEventListener('click', e => {
+var closeMenuButton = [
+    menuPage.querySelector('.close-icon'),
+    menuPage.querySelector('.mask')
+]
+var closeMenuFunc = function (el) { 
     menuPage.classList.remove('show-menu')
+}
+closeMenuButton.forEach(function(el){
+    el.addEventListener('click', closeMenuFunc)
 })
+
 document.addEventListener('keyup', e => {
-    if (e.key === 'Escape')
-    menuPage.classList.remove('show-menu')
+    if (e.key === 'Escape'){
+        closeMenuFunc()
+    }
 })
