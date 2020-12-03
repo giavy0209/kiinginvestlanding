@@ -199,7 +199,7 @@
 
         li {
 
-            a {
+            a, div {
                 height: 35px;
                 line-height: 35px;
                 font-size: $font7;
@@ -223,12 +223,16 @@
 
                 &#login {
                     border: 1px solid #FFF;
+                    cursor: pointer;
+                    user-select: none;
                 }
 
-                &#signup {
+                &#register {
                     background-image: linear-gradient(to bottom, #76C34E, #467FCE);
                     min-width: 120px;
                     text-align: center;
+                    cursor: pointer;
+                    user-select: none;
                 }
             }
         }

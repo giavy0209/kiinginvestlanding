@@ -74,7 +74,7 @@ var sliderNextButton = document.querySelector('#feel .next')
 
 var removeAllActive = function(list){
     list.forEach(function(el){
-        console.log(el);
+        // console.log(el);
         el.classList.remove('active')
     })
 }

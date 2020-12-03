@@ -5,8 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>King Invest Landing</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/popup.css" />
 </head>
 <body>
+
+    <div id="popup">
+        <div id="overlay"></div>
+        <div class="container-popup">
+            <div class="container-popup__left">
+                <img src="./images/logo-header.svg" alt="Logo">
+                <p class="name-kif">KING INVESTMENTS FUND</p>
+
+                <div class="route-popup">
+                    <div class="route-popup__button route-popup__register">
+                        <img src="./images/popup/register.svg" alt="icon" />
+                        <span>Đăng ký</span>
+                    </div>
+                    <div class="route-popup__button route-popup__login">
+                        <img src="./images/popup/login.svg" alt="icon" />
+                        <span>Đăng nhập</span>
+                    </div>
+                    <div class="route-popup__button route-popup__forgot">
+                        <img src="./images/popup/forgot.svg" alt="icon" />
+                        <span>Quên mật khẩu</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-popup__right">
+                <div class="form-popup form-register">
+                    <div class="form-popup__title">
+                        <p>Đăng Ký</p>
+                        <p>Bạn đã có tài khoản? <span class="form-register__login">Đăng nhập</span></p>
+                    </div>
+                    <form name="form-register" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email" />
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="form-popup form-login">
+                    <div class="form-popup__title">
+                        <p>Đăng Nhập</p>
+                        <p>Bạn chưa có tài khoản? <span class="form-login__register">Đăng ký</span></p>
+                    </div>
+                </div>
+                <div class="form-popup form-forgot">
+                    <div class="form-popup__title">
+                        <p>Quên Mật Khẩu?</p>
+                        <p>Đặt lại mật khẩu qua email đăng ký</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header id="header">
         <div class="kdg-container z-index-1 position-relative h-full">
             <div class="kdg-row va-m">
@@ -19,8 +73,8 @@
                 <div class="kdg-col-6">
                     <ul class="menu">
                         <li><a href="https://kif.group/" target="_blank" id="more">Tìm hiểu thêm về kif tại đây</a></li>
-                        <li><a href="#" id="login">ĐĂNG NHẬP</a></li>
-                        <li><a href="#" id="signup">ĐĂNG KÝ</a></li>
+                        <li><div id="login">ĐĂNG NHẬP</div></li>
+                        <li><div id="register">ĐĂNG KÝ</div></li>
                     </ul>
                 </div>
                 <div class="kdg-col-1">
@@ -319,6 +373,7 @@
     </footer>
 
     <script src="./js/main.js"></script>
+    <script src="./js/popup.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,162 @@
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    transition: all .3s ease;
+    opacity: 0;
+    pointer-events: none;
+
+    &.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+        background-color: rgba(0, 0, 0, .7);
+    }
+
+    .container-popup {
+        width: 900px;
+        height: 600px;
+        background-color: #FFF;
+        border-radius: 20px;
+        box-shadow: 0 3px 6px  rgba(0, 0, 0, .2);;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 30;
+
+        display: flex;
+
+        &__left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+            width: 280px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            background-image: linear-gradient(to bottom, #177D8A, #07A396);
+
+            .name-kif {
+                font-size: 19px;
+                font-family: BebasNeue;
+                font-weight: 600;
+                color: #FDE428;
+                margin-bottom: 30px;
+                margin-top: 5px;
+            }
+
+            .route-popup {
+                height: 140px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-self: flex-start;
+
+                &__button {
+                    opacity: 0.3;
+                    transition: all .3s ease;
+                    cursor: pointer;
+                    user-select: none;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 60px;
+                    width: 250px;
+                    height: 40px;
+                    border-top-right-radius: 15px;
+                    border-bottom-right-radius: 15px;
+                    background-image: linear-gradient(to bottom, #11DBC4, #147781);
+
+                    &.active {
+                        opacity: 1;
+                    }
+
+                    img {
+                        margin-right: 10px;
+                    }
+
+                    span {
+                        color: #FFF;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+
+        &__right {
+            width: calc(100% - 280px);
+
+            .form-popup {
+                height: 100%;
+                display: none;
+                opacity: 0;
+                transition: all .3s ease;
+
+                &.active {
+                    display: block;
+                    opacity: 1;
+                }
+
+                &__title {
+
+                    p:nth-child(1) {
+                        color: #303030;
+                        font-size: 24px;
+                        font-weight: 600;
+                    }
+
+                    p:nth-child(2) {
+                        color: #8A8C8E;
+                        font-size: 15px;
+
+                        span {
+                            color: #00807E;
+                            font-size: 15px;
+
+                            &:hover {
+                                cursor: pointer;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+
+                &__form {
+                    .form-popup__control {
+
+                        label {
+                            display: block;
+                            color: #8A8C8E;
+                            font-size: 15px;
+                            cursor: pointer;
+                            margin-bottom: 5px;
+                        }
+
+                        input {
+                            display: block;
+                            width: 100%;
+                            height: 35px;
+                            border-radius: 5px;
+                            border: none;
+                            background-color: #F1F3F4;
+                            font-size: 15px;
+                            color: #555;
+                            padding: 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
