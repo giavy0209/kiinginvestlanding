@@ -38,8 +38,8 @@
 
                 <div class="form-popup form-register">
                     <div class="form-popup__title">
-                        <p>Đăng Ký</p>
-                        <p>Bạn đã có tài khoản? <span class="link-to-login">Đăng nhập</span></p>
+                        <p class="form-popup__title1">Đăng Ký</p>
+                        <p class="form-popup__title2">Bạn đã có tài khoản? <span class="link-to-login">Đăng nhập</span></p>
                     </div>
                     <form name="form-register" class="form-popup__form">
                         <div class="layout-2">
@@ -102,8 +102,8 @@
 
                 <div class="form-popup form-login">
                     <div class="form-popup__title">
-                        <p>Đăng Nhập</p>
-                        <p>Bạn chưa có tài khoản? <span class="link-to-register">Đăng ký</span></p>
+                        <p class="form-popup__title1">Đăng Nhập</p>
+                        <p class="form-popup__title2">Bạn chưa có tài khoản? <span class="link-to-register">Đăng ký</span></p>
                     </div>
                     <form name="form-login" class="form-popup__form">
                         <div class="form-popup__control">
@@ -132,7 +132,7 @@
 
                 <div class="form-popup form-authentication">
                     <div class="form-popup__title">
-                        <p>
+                        <p class="form-popup__title1">
                             Đăng Nhập Với<br />
                             Google Authentication Code
                         </p>
@@ -140,7 +140,7 @@
                     <form name="form-authentication" class="form-popup__form">
                         <div class="form-popup__control">
                             <label for="authentication-code">Mã Xác minh của Google</label>
-                            <input id="authentication-code" type="text" name="authentication-code" />
+                            <input id="authentication-code" type="number" name="authentication-code" />
                         </div>
                         <div class="layout-2" style="margin-top: 10px;">
                             <div class="form-popup__control clear-mb">
@@ -155,10 +155,62 @@
 
                 <div class="form-popup form-forgot">
                     <div class="form-popup__title">
-                        <p>Quên Mật Khẩu?</p>
-                        <p>Đặt lại mật khẩu qua email đăng ký</p>
+                        <p class="form-popup__title1">Quên Mật Khẩu?</p>
+                        <p class="form-popup__title2">Đặt lại mật khẩu qua email đăng ký</p>
                     </div>
+                    <form name="form-forgot" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="email-forgot">Email</label>
+                            <input id="email-forgot" type="email" name="email-forgot" placeholder="Chúng tôi cần email của bạn cho việc xác minh"/>
+                        </div>
+                        <div class="layout-2" style="margin-top: 10px;">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Đặt lại</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Đặt lại</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+
+                <div class="form-popup form-reset">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">Đặt Lại Mật Khẩu</p>
+                        <p class="form-popup__title2">Chúng tôi vừa gửi mã code qua email của bạn. Vui lòng nhập vào ô bên dưới.</p>
+                    </div>
+                    <form name="form-reset" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="email-reset">Email</label>
+                            <input id="email-reset" type="email" name="email-reset" disabled />
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="password-reset">Mật khẩu mới</label>
+                            <input id="password-reset" type="password" name="password-reset" placeholder="Ít nhất 8 ký tự, bao gồm cả chữ và số" />
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="code-reset">Mã Code</label>
+                            <input id="code-reset" type="number" name="code-reset" placeholder="Mã code từ email" />
+                        </div>
+                        <div class="layout-2" style="margin-top: 10px;">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Xác nhận</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Xác nhận</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
