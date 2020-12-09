@@ -26,6 +26,7 @@
 
     .container-popup {
         width: 900px;
+        max-width: 100%;
         height: 600px;
         background-color: #FFF;
         border-radius: 20px;
@@ -36,6 +37,10 @@
         transform: translate(-50%, -50%);
         z-index: 30;
         display: flex;
+
+        @media only screen and (max-width : 768px) {
+            flex-direction: column;
+        }
 
         .close-icon {
             position: absolute;

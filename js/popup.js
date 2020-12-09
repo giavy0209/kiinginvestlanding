@@ -107,7 +107,7 @@ function checkValidRegisterFormEmail() {
 }
 
 function checkValidRegisterFormPassword1() {
-    let isValid = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,})/.test(RegisterForm.elements['password1'].value);
+    let isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(RegisterForm.elements['password1'].value);
 
     if (!isValid) {
         let errMes = RegisterFormPassword1.parentElement.querySelector('.error-message');
@@ -168,34 +168,6 @@ function checkValidRegisterFormPassword2() {
     }
 }
 
-function checkValidRegisterFormRegCode() {
-    if (RegisterForm.elements['regcode'].value !== REGISTER_CODE) {
-        let message = RegisterForm.previousElementSibling.querySelector('.message');
-        if (message) {
-            RegisterForm.previousElementSibling.removeChild(message);
-        }
-
-        let p = document.createElement('p');
-        p.classList.add('error-message');
-        p.classList.add('message');
-
-        let img = document.createElement('img');
-        img.src = './images/popup/exclamation.svg';
-        img.alt = 'icon';
-
-        let span = document.createElement('span');
-        span.innerText = 'Mã đăng ký không đúng! Vui lòng lấy lại mã đăng ký bằng email!';
-
-        p.appendChild(img);
-        p.appendChild(span);
-
-        RegisterForm.previousElementSibling.appendChild(p);
-
-        return false;
-    }
-
-    return true;
-}
 
 function checkValidRegisterForm() {
     let isValid =
@@ -218,12 +190,9 @@ function checkValidRegisterForm() {
 }
 
 getRegcodeByEmail.addEventListener('click', () => {
-    kifAPI.post('/create-register-code', { email: RegisterForm.elements['email'].value })
+    kifAPI.post('/reg_code', { email: RegisterForm.elements['email'].value })
     .then(function (response) {
         if (response.data.status === 1) {
-            console.log(response.data);
-            REGISTER_CODE = response.data.result.code;
-
             let message = RegisterForm.previousElementSibling.querySelector('.message');
             if (message) {
                 RegisterForm.previousElementSibling.removeChild(message);
@@ -335,15 +304,11 @@ RegisterFormConsent.addEventListener('change', () => {
 RegisterForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    if (!checkValidRegisterFormRegCode()) return;
-
-    kifAPI.post('/register_kif', {
-        lastname: RegisterForm.elements['lastname'].value,
-        firstname: RegisterForm.elements['firstname'].value,
+    kifAPI.post('/user', {
         email: RegisterForm.elements['email'].value,
         password: RegisterForm.elements['password1'].value,
-        ref_code: RegisterForm.elements['refcode'].value,
-        register_code: RegisterForm.elements['regcode'].value
+        parent_ref_code: RegisterForm.elements['refcode'].value,
+        email_code: RegisterForm.elements['regcode'].value
     })
     .then(function (response) {
 
@@ -371,6 +336,14 @@ RegisterForm.addEventListener('submit', e => {
 
             RegisterForm.reset();
             checkValidRegisterForm();
+            
+            containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
+            containerForm.querySelector('[class*="active"]').classList.remove('active');
+            routeBtnLogin.classList.add('active');   
+            formLogin.classList.add('active');
+
+            LoginFormEmail.value = RegisterForm.elements['email'].value
+
         } else {
             let message = RegisterForm.previousElementSibling.querySelector('.message');
             if (message) {
@@ -480,40 +453,22 @@ LoginForm.addEventListener('submit', e => {
         if (localStorage.getItem('passwordLogin')) localStorage.removeItem('passwordLogin');
     }
 
-    kifAPI.post('/login_kif', {
+    kifAPI.post('/login', {
         email: LoginForm.elements['emailLogin'].value,
         password: LoginForm.elements['passwordLogin'].value
     })
     .then(function (response) {
-        if (response.data.status === 3) {
+        if (response.data.status === 101) {
             containerForm.querySelector('[class*="active"]').classList.remove('active');
             formAuthentication.classList.add('active');
         }
 
         if (response.data.status === 1) {
-            let message = LoginForm.previousElementSibling.querySelector('.message');
-            if (message) {
-                LoginForm.previousElementSibling.removeChild(message);
-            }
-
-            let p = document.createElement('p');
-            p.classList.add('success-message');
-            p.classList.add('message');
-
-            let img = document.createElement('img');
-            img.src = './images/popup/check.svg';
-            img.alt = 'icon';
-
-            let span = document.createElement('span');
-            span.innerText = 'Đăng nhập thành công, sẽ chuyển sang trang Dashboard nhưng chưa có nên chưa chuyển được!';
-
-            p.appendChild(img);
-            p.appendChild(span);
-
-            LoginForm.previousElementSibling.appendChild(p);
+            localStorage.setItem('jwt', response.data.jwt)
+            window.open('/dashboard','_self')
         }
 
-        if (response.data.status === 0) {
+        if (response.data.status !== 1) {
 
             let message = LoginForm.previousElementSibling.querySelector('.message');
             if (message) {
@@ -536,7 +491,7 @@ LoginForm.addEventListener('submit', e => {
 
             LoginForm.previousElementSibling.appendChild(p);
 
-            if (response.data.error.message === 'password wrong!') {
+            if (response.data.status === 100) {
                 let message = LoginForm.previousElementSibling.querySelector('.message');
                 if (message) {
                     LoginForm.previousElementSibling.removeChild(message);
@@ -551,7 +506,7 @@ LoginForm.addEventListener('submit', e => {
                 img.alt = 'icon';
 
                 let span = document.createElement('span');
-                span.innerText = 'Mật khẩu không đúng! Vui lòng nhập lại!';
+                span.innerText = 'Email không tồn tại';
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -559,7 +514,7 @@ LoginForm.addEventListener('submit', e => {
                 LoginForm.previousElementSibling.appendChild(p);
             }
 
-            if (response.data.error.message === 'Cannot read property \'is2FA\' of null') {
+            if (response.data.status === 102) {
                 let message = LoginForm.previousElementSibling.querySelector('.message');
                 if (message) {
                     LoginForm.previousElementSibling.removeChild(message);
@@ -574,7 +529,29 @@ LoginForm.addEventListener('submit', e => {
                 img.alt = 'icon';
 
                 let span = document.createElement('span');
-                span.innerText = 'Email không tồn tại! Vui lòng nhập lại!';
+                span.innerText = 'Sai mật khẩu';
+
+                p.appendChild(img);
+                p.appendChild(span);
+
+                LoginForm.previousElementSibling.appendChild(p);
+            }
+            if (response.data.status === 104) {
+                let message = LoginForm.previousElementSibling.querySelector('.message');
+                if (message) {
+                    LoginForm.previousElementSibling.removeChild(message);
+                }
+
+                let p = document.createElement('p');
+                p.classList.add('error-message');
+                p.classList.add('message');
+
+                let img = document.createElement('img');
+                img.src = './images/popup/exclamation.svg';
+                img.alt = 'icon';
+
+                let span = document.createElement('span');
+                span.innerText = 'Tài khoản đã bị khóa';
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -612,60 +589,19 @@ AuthenticationFormCode.addEventListener('keyup', () => {
 AuthenticationForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    kifAPI.post('/login_kif', {
+    kifAPI.post('/login', {
         email: LoginForm.elements['emailLogin'].value,
         password: LoginForm.elements['passwordLogin'].value,
         code_2fa: AuthenticationForm.elements['authentication-code'].value
     })
     .then(function (response) {
 
-        if (response.data.status === 0) {
-            let message = AuthenticationForm.previousElementSibling.querySelector('.message');
-            if (message) {
-                AuthenticationForm.previousElementSibling.removeChild(message);
-            }
-
-            let p = document.createElement('p');
-            p.classList.add('error-message');
-            p.classList.add('message');
-
-            let img = document.createElement('img');
-            img.src = './images/popup/exclamation.svg';
-            img.alt = 'icon';
-
-            let span = document.createElement('span');
-            span.innerText = 'Mật khẩu không đúng! Vui lòng đăng nhập lại!';
-
-            p.appendChild(img);
-            p.appendChild(span);
-
-            AuthenticationForm.previousElementSibling.appendChild(p);
-        }
-
         if (response.data.status === 1) {
-            let message = AuthenticationForm.previousElementSibling.querySelector('.message');
-            if (message) {
-                AuthenticationForm.previousElementSibling.removeChild(message);
-            }
-
-            let p = document.createElement('p');
-            p.classList.add('success-message');
-            p.classList.add('message');
-
-            let img = document.createElement('img');
-            img.src = './images/popup/check.svg';
-            img.alt = 'icon';
-
-            let span = document.createElement('span');
-            span.innerText = 'Đăng nhập thành công, sẽ chuyển sang trang Dashboard nhưng chưa có nên chưa chuyển được!';
-
-            p.appendChild(img);
-            p.appendChild(span);
-
-            AuthenticationForm.previousElementSibling.appendChild(p);
+            localStorage.setItem('jwt', response.data.jwt)
+            window.open('/dashboard','_self')
         }
 
-        if (response.data.status === 4) {
+        if (response.data.status === 103) {
             let message = AuthenticationForm.previousElementSibling.querySelector('.message');
             if (message) {
                 AuthenticationForm.previousElementSibling.removeChild(message);
@@ -1016,18 +952,20 @@ linkToForgot.addEventListener('click', () => {
 });
 
 // Show popup, Active routeBtnRegister, Active the Right part of Register
-registerBtn.addEventListener('click', () => {
+const openRegForm = () => {
     popup.classList.add('show');
     routeBtnRegister.classList.add('active');
     formRegister.classList.add('active');
-});
+}
+registerBtn.addEventListener('click', openRegForm);
 
 // Show popup, Active routeBtnLogin, Active the Right part of Login
-loginBtn.addEventListener('click', () => {
+const openLoginForm = () => {
     popup.classList.add('show');
     routeBtnLogin.classList.add('active');
     formLogin.classList.add('active');
-});
+}
+loginBtn.addEventListener('click', openLoginForm);
 
 // Hide popup, Remove class active all Elements
 function hidePopup() {
@@ -1037,3 +975,4 @@ function hidePopup() {
 }
 overlay.addEventListener('click', hidePopup);
 closeIcon.addEventListener('click', hidePopup);
+
