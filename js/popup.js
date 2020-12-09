@@ -64,7 +64,12 @@ let ResetFormPassword = ResetForm.querySelector('#password-reset');
 let ResetFormCode = ResetForm.querySelector('#code-reset');
 let ResetFormSubmitButton = ResetForm.querySelector('button[type="submit"]');
 
-// Begin Handle Register Form
+var search = window.location.search
+search = search.replace('?ref=' , '')
+if(search){
+    openRegForm()
+    RegisterForm.elements['regcode'].value = search
+}
 function checkValidRegisterFormEmail() {
     let isValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(RegisterForm.elements['email'].value);
 
@@ -167,8 +172,6 @@ function checkValidRegisterFormPassword2() {
         RegisterFormError.pop();
     }
 }
-
-
 function checkValidRegisterForm() {
     let isValid =
         RegisterFormError.length === 0 &&
@@ -421,7 +424,6 @@ function checkValidLoginForm() {
     }
 }
 
-// Invork when page load to pass value into input
 (function checkLocalStorage() {
     let emailLogin = localStorage.getItem('emailLogin');
     let passwordLogin = localStorage.getItem('passwordLogin');
@@ -896,11 +898,6 @@ ResetForm.addEventListener('submit', e => {
         }
     });
 });
-// End Handle Reset Form
-
-
-
-
 // Add Event for 3 Route button
 routeButtons.forEach(routeBtn => {
 
