@@ -5,8 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>King Invest Landing</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/popup.css" />
 </head>
 <body>
+
+    <div id="popup">
+        <div id="overlay"></div>
+        <div class="container-popup">
+            <div class="close-icon">
+                <img src="./images/popup/close.svg" alt="icon" />
+            </div>
+            <div class="container-popup__left">
+                <img src="./images/logo-header.svg" alt="Logo">
+                <p class="name-kif">KING INVESTMENTS FUND</p>
+
+                <div class="route-popup">
+                    <div class="route-popup__button route-popup__register">
+                        <img src="./images/popup/register.svg" alt="icon" />
+                        <span>Đăng ký</span>
+                    </div>
+                    <div class="route-popup__button route-popup__login">
+                        <img src="./images/popup/login.svg" alt="icon" />
+                        <span>Đăng nhập</span>
+                    </div>
+                    <div class="route-popup__button route-popup__forgot">
+                        <img src="./images/popup/forgot.svg" alt="icon" />
+                        <span>Quên mật khẩu</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-popup__right">
+
+                <div class="form-popup form-register">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">Đăng Ký</p>
+                        <p class="form-popup__title2">Bạn đã có tài khoản? <span class="link-to-login">Đăng nhập</span></p>
+                    </div>
+                    <form name="form-register" class="form-popup__form">
+                        <div class="layout-2">
+                            <div class="form-popup__control">
+                                <label for="lastname">Tên</label>
+                                <input id="lastname" type="text" name="lastname" />
+                            </div>
+                            <div class="form-popup__control">
+                                <label for="firstname">Họ</label>
+                                <input id="firstname" type="text" name="firstname" />
+                            </div>
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email" />
+                        </div>
+                        <div class="layout-2">
+                            <div class="form-popup__control">
+                                <label for="password1">Mật khẩu</label>
+                                <input id="password1" type="password" name="password1" />
+                            </div>
+                            <div class="form-popup__control">
+                                <label for="password2">Xác nhận mật khẩu</label>
+                                <input id="password2" type="password" name="password2" />
+                            </div>
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="refcode">Mã giới thiệu</label>
+                            <input id="refcode" type="text" name="refcode" />
+                        </div>
+                        <div class="layout-2">
+                            <div class="form-popup__control">
+                                <label for="regcode">Mã đăng ký</label>
+                                <input id="regcode" type="text" name="regcode" />
+                            </div>
+                            <div class="form-popup__control" style="align-self: flex-end;">
+                                <button type="button" class="get-regcode-by-email" disabled>Lấy mã đăng ký bằng email</button>
+                            </div>
+                        </div>
+                        <div class="form-popup__control checkbox">
+                            <input id="consent" type="checkbox" name="consent" />
+                            <label for="consent">
+                                Tôi đồng ý với
+                                <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">
+                                    <span>Điều khoản và Điều kiện | Chính sách riêng tư</span>
+                                </a>
+                                của King Investments Fund.
+                            </label>
+                        </div>
+                        <div class="layout-2">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Đăng Ký</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Đăng Ký</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-popup form-login">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">Đăng Nhập</p>
+                        <p class="form-popup__title2">Bạn chưa có tài khoản? <span class="link-to-register">Đăng ký</span></p>
+                    </div>
+                    <form name="form-login" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="emailLogin">Email</label>
+                            <input id="emailLogin" type="email" name="emailLogin" />
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="passwordLogin">Mật khẩu</label>
+                            <input id="passwordLogin" type="password" name="passwordLogin" />
+                        </div>
+                        <div class="form-popup__control checkbox" style="align-items: center;">
+                            <input id="rememberLogin" type="checkbox" name="rememberLogin" checked />
+                            <label for="rememberLogin">Nhớ Email và mật khẩu</label>
+                        </div>
+                        <div class="layout-2">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Đăng Nhập</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Đăng Nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="link-to-forgot">Quên mật khẩu?</p>
+                </div>
+
+                <div class="form-popup form-authentication">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">
+                            Đăng Nhập Với<br />
+                            Google Authentication Code
+                        </p>
+                    </div>
+                    <form name="form-authentication" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="authentication-code">Mã Xác minh của Google</label>
+                            <input id="authentication-code" type="number" name="authentication-code" />
+                        </div>
+                        <div class="layout-2" style="margin-top: 10px;">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Đăng Nhập</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Đăng Nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-popup form-forgot">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">Quên Mật Khẩu?</p>
+                        <p class="form-popup__title2">Đặt lại mật khẩu qua email đăng ký</p>
+                    </div>
+                    <form name="form-forgot" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="email-forgot">Email</label>
+                            <input id="email-forgot" type="email" name="email-forgot" placeholder="Chúng tôi cần email của bạn cho việc xác minh"/>
+                        </div>
+                        <div class="layout-2" style="margin-top: 10px;">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Đặt lại</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Đặt lại</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-popup form-reset">
+                    <div class="form-popup__title">
+                        <p class="form-popup__title1">Đặt Lại Mật Khẩu</p>
+                        <p class="form-popup__title2">Chúng tôi vừa gửi mã code qua email của bạn. Vui lòng nhập vào ô bên dưới.</p>
+                    </div>
+                    <form name="form-reset" class="form-popup__form">
+                        <div class="form-popup__control">
+                            <label for="email-reset">Email</label>
+                            <input id="email-reset" type="email" name="email-reset" disabled />
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="password-reset">Mật khẩu mới</label>
+                            <input id="password-reset" type="password" name="password-reset" placeholder="Ít nhất 8 ký tự, bao gồm cả chữ và số" />
+                        </div>
+                        <div class="form-popup__control">
+                            <label for="code-reset">Mã Code</label>
+                            <input id="code-reset" type="number" name="code-reset" placeholder="Mã code từ email" />
+                        </div>
+                        <div class="layout-2" style="margin-top: 10px;">
+                            <div class="form-popup__control clear-mb">
+                                <button type="submit" disabled>Xác nhận</button>
+                            </div>
+                            <div class="form-popup__control clear-mb hide">
+                                <button type="button">Xác nhận</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
     <header id="header">
         <div class="kdg-container z-index-1 position-relative h-full">
             <div class="kdg-row va-m">
@@ -19,8 +227,8 @@
                 <div class="kdg-col-6">
                     <ul class="menu">
                         <li><a href="https://kif.group/" target="_blank" id="more">Tìm hiểu thêm về kif tại đây</a></li>
-                        <li><a href="#" id="login">ĐĂNG NHẬP</a></li>
-                        <li><a href="#" id="signup">ĐĂNG KÝ</a></li>
+                        <li><div id="login">ĐĂNG NHẬP</div></li>
+                        <li><div id="register">ĐĂNG KÝ</div></li>
                     </ul>
                 </div>
                 <div class="kdg-col-1">
@@ -318,7 +526,9 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/popup.js"></script>
 </body>
 
 </html>
