@@ -47,7 +47,7 @@
             transition: all .3s ease;
         }
         &.show-menu {
-            transform: translate(0% , 0);    
+            transform: translate(0% , 0);
             .mask{
                 width: 30vw;
                 top : 0;
@@ -1001,6 +1001,27 @@
             }
         }
 
+    }
+
+    .policy {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, .6);
+
+        >* {
+            width: calc(100% / 5);
+            color: #FFF;
+            font-size: 15px;
+            padding: 10px 0;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                opacity: .5;
+            }
+        }
     }
 
     .copyright {
