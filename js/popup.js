@@ -63,7 +63,12 @@ let ResetFormPassword = ResetForm.querySelector('#password-reset');
 let ResetFormCode = ResetForm.querySelector('#code-reset');
 let ResetFormSubmitButton = ResetForm.querySelector('button[type="submit"]');
 
-// Begin Handle Register Form
+var search = window.location.search
+search = search.replace('?ref=' , '')
+if(search){
+    openRegForm()
+    RegisterForm.elements['regcode'].value = search
+}
 function checkValidRegisterFormEmail() {
     let isValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(RegisterForm.elements['email'].value);
 
@@ -166,7 +171,6 @@ function checkValidRegisterFormPassword2() {
         RegisterFormError.pop();
     }
 }
-
 
 function checkValidRegisterForm() {
     let isValid =
@@ -685,11 +689,11 @@ ForgotFormEmail.addEventListener('keyup', () => {
 ForgotForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    kifAPI.post('/create_forgot_password_code', {
+    kifAPI.post('/forgot_password_code', {
         email: ForgotForm.elements['email-forgot'].value
     })
     .then(function (response) {
-        if (response.data.status === 0) {
+        if (response.data.status === 101) {
 
             let message = ForgotForm.previousElementSibling.querySelector('.message');
             if (message) {
@@ -705,60 +709,36 @@ ForgotForm.addEventListener('submit', e => {
             img.alt = 'icon';
 
             let span = document.createElement('span');
-            span.innerText = 'Có lỗi xảy ra! Vui lòng nhập lại!';
+            span.innerText = 'Email không tồn tại';
 
             p.appendChild(img);
             p.appendChild(span);
 
             ForgotForm.previousElementSibling.appendChild(p);
 
-            if (response.data.error.message === 'email is not register!') {
-                let message = ForgotForm.previousElementSibling.querySelector('.message');
-                if (message) {
-                    ForgotForm.previousElementSibling.removeChild(message);
-                }
-
-                let p = document.createElement('p');
-                p.classList.add('error-message');
-                p.classList.add('message');
-
-                let img = document.createElement('img');
-                img.src = './images/popup/exclamation.svg';
-                img.alt = 'icon';
-
-                let span = document.createElement('span');
-                span.innerText = 'Email chưa được đăng ký! Vui lòng nhập lại!';
-
-                p.appendChild(img);
-                p.appendChild(span);
-
-                ForgotForm.previousElementSibling.appendChild(p);
-
+            
+        }
+        if (response.data.status === 102) {
+            let message = ForgotForm.previousElementSibling.querySelector('.message');
+            if (message) {
+                ForgotForm.previousElementSibling.removeChild(message);
             }
 
-            if (response.data.error.message === 'you wait 2 minute to resend code') {
-                let message = ForgotForm.previousElementSibling.querySelector('.message');
-                if (message) {
-                    ForgotForm.previousElementSibling.removeChild(message);
-                }
+            let p = document.createElement('p');
+            p.classList.add('error-message');
+            p.classList.add('message');
 
-                let p = document.createElement('p');
-                p.classList.add('error-message');
-                p.classList.add('message');
+            let img = document.createElement('img');
+            img.src = './images/popup/exclamation.svg';
+            img.alt = 'icon';
 
-                let img = document.createElement('img');
-                img.src = './images/popup/exclamation.svg';
-                img.alt = 'icon';
+            let span = document.createElement('span');
+            span.innerText = 'Vui lòng chờ 2 phút trước khi nhận mã mới!';
 
-                let span = document.createElement('span');
-                span.innerText = 'Vui lòng chờ 2 phút trước khi nhận mã mới!';
+            p.appendChild(img);
+            p.appendChild(span);
 
-                p.appendChild(img);
-                p.appendChild(span);
-
-                ForgotForm.previousElementSibling.appendChild(p);
-            }
-
+            ForgotForm.previousElementSibling.appendChild(p);
         }
 
         if (response.data.status === 1) {
@@ -834,14 +814,14 @@ ResetFormCode.addEventListener('keyup', () => {
 ResetForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    kifAPI.put('/forgot-password', {
+    kifAPI.put('/forgot_password', {
         email: ResetForm.elements['email-reset'].value,
         new_password: ResetForm.elements['password-reset'].value,
         forgot_password_code: ResetForm.elements['code-reset'].value
     })
     .then(function (response) {
 
-        if (response.data.status === 0) {
+        if (response.data.status === 101) {
             let message = ResetForm.previousElementSibling.querySelector('.message');
             if (message) {
                 ResetForm.previousElementSibling.removeChild(message);
@@ -856,7 +836,30 @@ ResetForm.addEventListener('submit', e => {
             img.alt = 'icon';
 
             let span = document.createElement('span');
-            span.innerText = 'Có lỗi xảy ra! Vui lòng nhập lại!';
+            span.innerText = 'Email không tồn tại';
+
+            p.appendChild(img);
+            p.appendChild(span);
+
+            ResetForm.previousElementSibling.appendChild(p);
+        }
+
+        if (response.data.status === 102) {
+            let message = ResetForm.previousElementSibling.querySelector('.message');
+            if (message) {
+                ResetForm.previousElementSibling.removeChild(message);
+            }
+
+            let p = document.createElement('p');
+            p.classList.add('error-message');
+            p.classList.add('message');
+
+            let img = document.createElement('img');
+            img.src = './images/popup/exclamation.svg';
+            img.alt = 'icon';
+
+            let span = document.createElement('span');
+            span.innerText = 'Mã sai';
 
             p.appendChild(img);
             p.appendChild(span);
@@ -886,8 +889,10 @@ ResetForm.addEventListener('submit', e => {
 
             ResetForm.previousElementSibling.appendChild(p);
 
+            LoginFormEmail.value = ResetFormEmail.value;
+            navigateToLoginForm();
+
             ResetForm.reset();
-            ResetForm.elements['email-reset'].value = ForgotForm.elements['email-forgot'].value;
             checkValidResetForm();
         }
     });
