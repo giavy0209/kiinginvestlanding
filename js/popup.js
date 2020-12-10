@@ -1,7 +1,5 @@
 const kifAPI = axios.create({ baseURL: 'http://178.128.60.247:3000' });
 
-let REGISTER_CODE = '';
-
 let registerBtn = document.querySelector('#register');
 let loginBtn = document.querySelector('#login');
 
@@ -16,8 +14,9 @@ let formForgot = document.querySelector('.form-forgot');
 let formReset = document.querySelector('.form-reset');
 
 let popup = document.querySelector('#popup');
-let overlay = document.querySelector('#overlay');
-let closeIcon = document.querySelector('.close-icon');
+let overlay = popup.querySelector('#overlay');
+let closeIcon = popup.querySelector('.close-icon');
+let menuIcon = popup.querySelector('.menu-icon-popup');
 
 let routeButtons = document.querySelectorAll('.route-popup__button');
 let containerForm = document.querySelector('.container-popup__right');
@@ -121,7 +120,7 @@ function checkValidRegisterFormPassword1() {
         img.alt = 'icon';
 
         let span = document.createElement('span');
-        span.innerText = 'Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt';
+        span.innerText = 'Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết thường, một số và một ký tự đặc biệt';
 
         p.appendChild(img);
         p.appendChild(span);
@@ -190,7 +189,9 @@ function checkValidRegisterForm() {
 }
 
 getRegcodeByEmail.addEventListener('click', () => {
-    kifAPI.post('/reg_code', { email: RegisterForm.elements['email'].value })
+    kifAPI.post('/reg_code', {
+        email: RegisterForm.elements['email'].value
+    })
     .then(function (response) {
         if (response.data.status === 1) {
             let message = RegisterForm.previousElementSibling.querySelector('.message');
@@ -278,6 +279,11 @@ RegisterFormEmail.addEventListener('keyup', () => {
     checkValidRegisterForm();
 });
 
+RegisterFormEmail.addEventListener('focus', () => {
+    checkValidRegisterFormEmail();
+    checkValidRegisterForm();
+});
+
 RegisterFormPassword1.addEventListener('keyup', () => {
     checkValidRegisterFormPassword1();
     checkValidRegisterFormPassword2();
@@ -334,16 +340,11 @@ RegisterForm.addEventListener('submit', e => {
 
             RegisterForm.previousElementSibling.appendChild(p);
 
+            LoginFormEmail.value = RegisterFormEmail.value;
+            navigateToLoginForm();
+
             RegisterForm.reset();
             checkValidRegisterForm();
-            
-            containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
-            containerForm.querySelector('[class*="active"]').classList.remove('active');
-            routeBtnLogin.classList.add('active');   
-            formLogin.classList.add('active');
-
-            LoginFormEmail.value = RegisterForm.elements['email'].value
-
         } else {
             let message = RegisterForm.previousElementSibling.querySelector('.message');
             if (message) {
@@ -421,7 +422,6 @@ function checkValidLoginForm() {
     }
 }
 
-// Invork when page load to pass value into input
 (function checkLocalStorage() {
     let emailLogin = localStorage.getItem('emailLogin');
     let passwordLogin = localStorage.getItem('passwordLogin');
@@ -774,7 +774,7 @@ ForgotForm.addEventListener('submit', e => {
 
 // Begin Handle Reset Form
 function checkValidResetFormPassword() {
-    let isValid = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,})/.test(ResetForm.elements['password-reset'].value);
+    let isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(ResetForm.elements['password-reset'].value);
 
     if (!isValid) {
         let errMes = ResetFormPassword.parentElement.querySelector('.error-message');
@@ -788,7 +788,7 @@ function checkValidResetFormPassword() {
         img.alt = 'icon';
 
         let span = document.createElement('span');
-        span.innerText = 'Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt';
+        span.innerText = 'Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết thường, một số và một ký tự đặc biệt';
 
         p.appendChild(img);
         p.appendChild(span);
@@ -897,61 +897,59 @@ ResetForm.addEventListener('submit', e => {
 
 
 
-// Add Event for 3 Route button
+// Navigate Route Button
 routeButtons.forEach(routeBtn => {
-
     routeBtn.addEventListener('click', () => {
-
         if (routeBtn.classList.contains('active')) return;
-
         if (routeBtn.classList.contains('route-popup__register')) {
-            routeBtn.parentElement.querySelector('[class*="active"]').classList.remove('active');
-            routeBtn.classList.add('active');
-            containerForm.querySelector('[class*="active"]').classList.remove('active');
-            formRegister.classList.add('active');
+            navigateToRegisterForm();
+            if (popup.classList.contains('show-menu-mobile')) {
+                popup.classList.remove('show-menu-mobile');
+            }
         }
-
         if (routeBtn.classList.contains('route-popup__login')) {
-            routeBtn.parentElement.querySelector('[class*="active"]').classList.remove('active');
-            routeBtn.classList.add('active');
-            containerForm.querySelector('[class*="active"]').classList.remove('active');
-            formLogin.classList.add('active');
+            navigateToLoginForm();
+            if (popup.classList.contains('show-menu-mobile')) {
+                popup.classList.remove('show-menu-mobile');
+            }
         }
-
         if (routeBtn.classList.contains('route-popup__forgot')) {
-            routeBtn.parentElement.querySelector('[class*="active"]').classList.remove('active');
-            routeBtn.classList.add('active');
-            containerForm.querySelector('[class*="active"]').classList.remove('active');
-            formForgot.classList.add('active');
+            navigateToForgotForm();
+            if (popup.classList.contains('show-menu-mobile')) {
+                popup.classList.remove('show-menu-mobile');
+            }
         }
     });
 });
 
-// Add Event for Link to Login
-linkToLogin.addEventListener('click', () => {
+// Navigate To Login Form
+const navigateToLoginForm = () => {
     containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
+    containerForm.querySelector('[class*="active"]').classList.remove('active');
     routeBtnLogin.classList.add('active');
-    containerForm.querySelector('[class*="active"]').classList.remove('active');
     formLogin.classList.add('active');
-});
+}
+linkToLogin.addEventListener('click', navigateToLoginForm);
 
-// Add Event for Link to Register
-linkToRegister.addEventListener('click', () => {
+// Navigate To Register Form
+const navigateToRegisterForm = () => {
     containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
+    containerForm.querySelector('[class*="active"]').classList.remove('active');
     routeBtnRegister.classList.add('active');
-    containerForm.querySelector('[class*="active"]').classList.remove('active');
     formRegister.classList.add('active');
-});
+}
+linkToRegister.addEventListener('click', navigateToRegisterForm);
 
-// Add Event for Link to Forgot
-linkToForgot.addEventListener('click', () => {
+// Navigate To Forgot Form
+const navigateToForgotForm = () => {
     containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
-    routeBtnForgot.classList.add('active');
     containerForm.querySelector('[class*="active"]').classList.remove('active');
+    routeBtnForgot.classList.add('active');
     formForgot.classList.add('active');
-});
+}
+linkToForgot.addEventListener('click', navigateToForgotForm);
 
-// Show popup, Active routeBtnRegister, Active the Right part of Register
+// Show Popup, Open Form Register
 const openRegForm = () => {
     popup.classList.add('show');
     routeBtnRegister.classList.add('active');
@@ -959,7 +957,7 @@ const openRegForm = () => {
 }
 registerBtn.addEventListener('click', openRegForm);
 
-// Show popup, Active routeBtnLogin, Active the Right part of Login
+// Show Popup, Open Form Login
 const openLoginForm = () => {
     popup.classList.add('show');
     routeBtnLogin.classList.add('active');
@@ -967,12 +965,19 @@ const openLoginForm = () => {
 }
 loginBtn.addEventListener('click', openLoginForm);
 
-// Hide popup, Remove class active all Elements
-function hidePopup() {
+// Hide Popup
+const hidePopup = () => {
     popup.classList.remove('show');
     containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
     containerForm.querySelector('[class*="active"]').classList.remove('active');
+    RegisterForm.reset();
+    ForgotForm.reset();
 }
 overlay.addEventListener('click', hidePopup);
 closeIcon.addEventListener('click', hidePopup);
 
+// Show Menu In Mobile
+const showMenuMobile = () => {
+    popup.classList.toggle('show-menu-mobile');
+}
+menuIcon.addEventListener('click', showMenuMobile);

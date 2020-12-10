@@ -92,8 +92,13 @@
             text-align: center;
             margin-top: 45px;
 
-            &:hover {
+            span {
+                font-size: 16px;
                 text-decoration: underline;
+            }
+
+            &:hover {
+                opacity: .5;
             }
         }
 
@@ -216,7 +221,8 @@
                 &#more {
                     padding: 0;
 
-                    &:hover {
+                    span {
+                        font-size: $font7;
                         text-decoration: underline;
                     }
                 }
