@@ -71,12 +71,6 @@ let ResetFormPassword = ResetForm.querySelector("#password-reset");
 let ResetFormCode = ResetForm.querySelector("#code-reset");
 let ResetFormSubmitButton = ResetForm.querySelector('button[type="submit"]');
 
-var search = window.location.search;
-search = search.replace("?ref=", "");
-if (search) {
-    openRegForm();
-    RegisterForm.elements["regcode"].value = search;
-}
 function checkValidRegisterFormEmail() {
     let isValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
         RegisterForm.elements["email"].value
@@ -1052,27 +1046,24 @@ registerBtn.addEventListener("click", openRegForm);
 
 // Show Popup, Open Form Login
 const openLoginForm = () => {
-    popup.classList.add("show");
-    routeBtnLogin.classList.add("active");
-    formLogin.classList.add("active");
-};
-loginBtn.addEventListener("click", openLoginForm);
+    popup.classList.add('show');
+    routeBtnLogin.classList.add('active');
+    formLogin.classList.add('active');
+}
+loginBtn.addEventListener('click', openLoginForm);
 
-// Hide Popup
-const hidePopup = () => {
-    popup.classList.remove("show");
-    containerRouteButtons
-        .querySelector('[class*="active"]')
-        .classList.remove("active");
-    containerForm.querySelector('[class*="active"]').classList.remove("active");
-    RegisterForm.reset();
-    ForgotForm.reset();
-};
-overlay.addEventListener("click", hidePopup);
-closeIcon.addEventListener("click", hidePopup);
+// Hide popup, Remove class active all Elements
+function hidePopup() {
+    popup.classList.remove('show');
+    containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
+    containerForm.querySelector('[class*="active"]').classList.remove('active');
+}
+overlay.addEventListener('click', hidePopup);
+closeIcon.addEventListener('click', hidePopup);
 
-// Show Menu In Mobile
-const showMenuMobile = () => {
-    popup.classList.toggle("show-menu-mobile");
-};
-menuIcon.addEventListener("click", showMenuMobile);
+var search = window.location.search
+search = search.replace('?ref=' , '')
+if(search){
+    openRegForm()
+    RegisterForm.elements['refcode'].value = search
+}
