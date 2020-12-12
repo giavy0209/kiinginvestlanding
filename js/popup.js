@@ -244,8 +244,7 @@ getRegcodeByEmail.addEventListener("click", () => {
                 RegisterForm.previousElementSibling.appendChild(p);
             }
 
-            if (response.data.status === 0) {
-                console.log(response.data);
+            if (response.data.status === 100) {
 
                 let message = RegisterForm.previousElementSibling.querySelector(
                     ".message"
@@ -263,40 +262,13 @@ getRegcodeByEmail.addEventListener("click", () => {
                 img.alt = "icon";
 
                 let span = document.createElement("span");
-                span.innerText = "Có lỗi xảy ra! Vui lòng thử lại!";
+                span.innerText = "Email đã tồn tại";
 
                 p.appendChild(img);
                 p.appendChild(span);
 
                 RegisterForm.previousElementSibling.appendChild(p);
 
-                if (response.data.error.message === "email is registed!") {
-                    let message = RegisterForm.previousElementSibling.querySelector(
-                        ".message"
-                    );
-                    if (message) {
-                        RegisterForm.previousElementSibling.removeChild(
-                            message
-                        );
-                    }
-
-                    let p = document.createElement("p");
-                    p.classList.add("error-message");
-                    p.classList.add("message");
-
-                    let img = document.createElement("img");
-                    img.src = "./images/popup/exclamation.svg";
-                    img.alt = "icon";
-
-                    let span = document.createElement("span");
-                    span.innerText =
-                        "Email này đã được sử dụng! Vui lòng dùng email khác!";
-
-                    p.appendChild(img);
-                    p.appendChild(span);
-
-                    RegisterForm.previousElementSibling.appendChild(p);
-                }
             }
         });
 });
@@ -377,7 +349,8 @@ RegisterForm.addEventListener("submit", (e) => {
 
                 RegisterForm.previousElementSibling.appendChild(p);
 
-                LoginFormEmail.value = RegisterFormEmail.value;
+                LoginForm.reset()
+                LoginFormEmail.value = RegisterForm.elements["email"].value;
                 navigateToLoginForm();
 
                 RegisterForm.reset();
