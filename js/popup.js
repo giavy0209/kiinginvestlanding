@@ -888,10 +888,10 @@ ResetForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     kifAPI
-        .put("/forgot_password", {
+        .post("/forgot_password", {
             email: ResetForm.elements["email-reset"].value,
-            new_password: ResetForm.elements["password-reset"].value,
-            forgot_password_code: ResetForm.elements["code-reset"].value,
+            password: ResetForm.elements["password-reset"].value,
+            email_code: ResetForm.elements["code-reset"].value,
         })
         .then(function (response) {
             if (response.data.status === 101) {
