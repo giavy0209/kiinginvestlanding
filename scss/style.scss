@@ -2,6 +2,31 @@
 @import "./fonts";
 @import "./reset";
 
+#message {
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    transform: translate(100% , 0);
+    transition: all .3s ease;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 99;
+    font-size: 18px;
+    &.success {
+        color: #fff;
+        background-color: #00ff00;
+    }
+    &.error {
+        color: #fff;
+        background-color: #ff0000;
+    }
+    &.show{
+        right: 20px;
+        transform: translate(0);
+    }
+}
+
 #header {
     padding-top: 50px;
     padding-bottom: 100px;

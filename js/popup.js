@@ -1,5 +1,23 @@
 const kifAPI = axios.create({ baseURL: "http://178.128.60.247:3000" });
 
+const openMessage = function (message , type) {
+    var blockMessage = document.getElementById('message')
+    blockMessage.innerText = message
+    blockMessage.classList.add('show')
+    if(type === 0) {
+        blockMessage.classList.add('error')
+    }
+    if(type === 1){
+        blockMessage.classList.add('success')
+    }
+
+    setTimeout(() => {
+        blockMessage.classList.remove('show')
+        blockMessage.classList.remove('success')
+        blockMessage.classList.remove('error')
+    }, 5000);
+}
+
 let registerBtn = document.querySelector("#register");
 let loginBtn = document.querySelector("#login");
 
@@ -237,6 +255,7 @@ getRegcodeByEmail.addEventListener("click", () => {
 
                 let span = document.createElement("span");
                 span.innerText = "Lấy mã thành công! Vui lòng kiểm tra email!";
+                openMessage('Lấy mã thành công! Vui lòng kiểm tra email!' , 1)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -263,6 +282,34 @@ getRegcodeByEmail.addEventListener("click", () => {
 
                 let span = document.createElement("span");
                 span.innerText = "Email đã tồn tại";
+                openMessage('Email đã tồn tại' , 0)
+
+                p.appendChild(img);
+                p.appendChild(span);
+
+                RegisterForm.previousElementSibling.appendChild(p);
+
+            }
+            if (response.data.status === 102) {
+
+                let message = RegisterForm.previousElementSibling.querySelector(
+                    ".message"
+                );
+                if (message) {
+                    RegisterForm.previousElementSibling.removeChild(message);
+                }
+
+                let p = document.createElement("p");
+                p.classList.add("error-message");
+                p.classList.add("message");
+
+                let img = document.createElement("img");
+                img.src = "./images/popup/exclamation.svg";
+                img.alt = "icon";
+
+                let span = document.createElement("span");
+                span.innerText = "Vui lòng chờ 2 phút trước khi gửi lại mã";
+                openMessage('Vui lòng chờ 2 phút trước khi gửi lại mã' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -325,7 +372,7 @@ RegisterForm.addEventListener("submit", (e) => {
             email_code: RegisterForm.elements["regcode"].value,
         })
         .then(function (response) {
-            if (response.data.status) {
+            if (response.data.status === 1) {
                 let message = RegisterForm.previousElementSibling.querySelector(
                     ".message"
                 );
@@ -343,6 +390,7 @@ RegisterForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Đăng ký thành công!";
+                openMessage('Đăng ký thành công!' , 1)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -373,6 +421,7 @@ RegisterForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Đăng ký thất bại! Vui lòng thử lại!";
+                openMessage('Đăng ký thất bại! Vui lòng thử lại!' , 1)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -483,6 +532,7 @@ LoginForm.addEventListener("submit", (e) => {
             password: LoginForm.elements["passwordLogin"].value,
         })
         .then(function (response) {
+            openMessage('Đăng nhập thành công' , 1)
             if (response.data.status === 101) {
                 containerForm
                     .querySelector('[class*="active"]')
@@ -537,6 +587,7 @@ LoginForm.addEventListener("submit", (e) => {
 
                     let span = document.createElement("span");
                     span.innerText = "Email không tồn tại";
+                    openMessage('Email không tồn tại' , 0)
 
                     p.appendChild(img);
                     p.appendChild(span);
@@ -562,6 +613,7 @@ LoginForm.addEventListener("submit", (e) => {
 
                     let span = document.createElement("span");
                     span.innerText = "Sai mật khẩu";
+                    openMessage('Sai mật khẩu' , 0)
 
                     p.appendChild(img);
                     p.appendChild(span);
@@ -586,6 +638,7 @@ LoginForm.addEventListener("submit", (e) => {
 
                     let span = document.createElement("span");
                     span.innerText = "Tài khoản đã bị khóa";
+                    openMessage('Tài khoản đã bị khóa' , 0)
 
                     p.appendChild(img);
                     p.appendChild(span);
@@ -748,6 +801,7 @@ ForgotForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Email không tồn tại";
+                openMessage('Email không tồn tại' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -772,6 +826,7 @@ ForgotForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Vui lòng chờ 2 phút trước khi nhận mã mới!";
+                openMessage('Vui lòng chờ 2 phút trước khi nhận mã mới!' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -780,6 +835,8 @@ ForgotForm.addEventListener("submit", (e) => {
             }
 
             if (response.data.status === 1) {
+                openMessage('Đã gửi mã vào email của bạn' , 1)
+
                 ResetForm.elements["email-reset"].value =
                     ForgotForm.elements["email-forgot"].value;
                 containerForm
@@ -885,6 +942,7 @@ ResetForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Email không tồn tại";
+                openMessage('Email không tồn tại' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -910,6 +968,7 @@ ResetForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Mã sai";
+                openMessage('Mã sai' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -935,6 +994,7 @@ ResetForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Đổi mật khẩu thành công!";
+                openMessage('Đổi mật khẩu thành công!' , 1)
 
                 p.appendChild(img);
                 p.appendChild(span);
