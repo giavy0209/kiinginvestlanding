@@ -645,6 +645,34 @@ LoginForm.addEventListener("submit", (e) => {
 
                     LoginForm.previousElementSibling.appendChild(p);
                 }
+                if (response.data.status === 105) {
+                    let message = LoginForm.previousElementSibling.querySelector(
+                        ".message"
+                    );
+                    if (message) {
+                        LoginForm.previousElementSibling.removeChild(message);
+                    }
+
+                    let p = document.createElement("p");
+                    p.classList.add("error-message");
+                    p.classList.add("message");
+
+                    let img = document.createElement("img");
+                    img.src = "./images/popup/exclamation.svg";
+                    img.alt = "icon";
+
+                    let span = document.createElement("span");
+                    span.innerText = "Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu";
+                    openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu' , 1)
+                    navigateToForgotForm()
+
+                    p.appendChild(img);
+                    p.appendChild(span);
+
+                    LoginForm.previousElementSibling.appendChild(p);
+
+                    
+                }
             }
         });
 });
@@ -706,6 +734,36 @@ AuthenticationForm.addEventListener("submit", (e) => {
 
                 let span = document.createElement("span");
                 span.innerText = "Mã xác minh không đúng! Vui lòng nhập lại!";
+                openMessage('Mã xác minh không đúng! Vui lòng nhập lại!' , 0)
+
+                p.appendChild(img);
+                p.appendChild(span);
+
+                AuthenticationForm.previousElementSibling.appendChild(p);
+            }
+
+            if (response.data.status === 105) {
+                let message = AuthenticationForm.previousElementSibling.querySelector(
+                    ".message"
+                );
+                if (message) {
+                    AuthenticationForm.previousElementSibling.removeChild(
+                        message
+                    );
+                }
+
+                let p = document.createElement("p");
+                p.classList.add("error-message");
+                p.classList.add("message");
+
+                let img = document.createElement("img");
+                img.src = "./images/popup/exclamation.svg";
+                img.alt = "icon";
+
+                let span = document.createElement("span");
+                span.innerText = "Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu";
+                openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu' , 1)
+                navigateToForgotForm()
 
                 p.appendChild(img);
                 p.appendChild(span);
@@ -969,6 +1027,32 @@ ResetForm.addEventListener("submit", (e) => {
                 let span = document.createElement("span");
                 span.innerText = "Mã sai";
                 openMessage('Mã sai' , 0)
+
+                p.appendChild(img);
+                p.appendChild(span);
+
+                ResetForm.previousElementSibling.appendChild(p);
+            }
+
+            if (response.data.status === 103) {
+                let message = ResetForm.previousElementSibling.querySelector(
+                    ".message"
+                );
+                if (message) {
+                    ResetForm.previousElementSibling.removeChild(message);
+                }
+
+                let p = document.createElement("p");
+                p.classList.add("error-message");
+                p.classList.add("message");
+
+                let img = document.createElement("img");
+                img.src = "./images/popup/exclamation.svg";
+                img.alt = "icon";
+
+                let span = document.createElement("span");
+                span.innerText = "Mật khẩu mới không được giống mật khẩu cũ";
+                openMessage('Mật khẩu mới không được giống mật khẩu cũ' , 0)
 
                 p.appendChild(img);
                 p.appendChild(span);
