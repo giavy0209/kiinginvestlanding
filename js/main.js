@@ -4,9 +4,9 @@ var handleInputCalc = function (ele) {
     var permonth = document.getElementById('permonth')
     var value = Number(ele.value)
     // console.log(value);
-    perday.innerText = '$'+(value * 0.004).toFixed(2)
-    perweek.innerText = '$'+(value * 0.004 * 7).toFixed(2)
-    permonth.innerText = '$'+(value * 0.004 * 30).toFixed(2)
+    perday.innerText = '$'+(Math.floor(value * 0.004 * 100) / 100)
+    perweek.innerText = '$'+(Math.floor(value * 0.004 * 7 * 100) / 100)
+    permonth.innerText = '$'+(Math.floor(value * 0.004 * 30 * 100) / 100)
 }
 var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , duration) {
     return new Promise (function(resolve) {

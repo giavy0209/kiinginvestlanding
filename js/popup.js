@@ -399,7 +399,6 @@ RegisterForm.addEventListener("submit", (e) => {
 
                 LoginForm.reset()
                 LoginFormEmail.value = RegisterForm.elements["email"].value;
-                LoginFormPassword.value = ResetFormEmail.value;
 
                 navigateToLoginForm();
 
@@ -1088,7 +1087,6 @@ ResetForm.addEventListener("submit", (e) => {
                 ResetForm.previousElementSibling.appendChild(p);
 
                 LoginFormEmail.value = ResetFormEmail.value;
-                LoginFormPassword.value = ResetFormEmail.value;
                 navigateToLoginForm();
 
                 ResetForm.reset();
