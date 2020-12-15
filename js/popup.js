@@ -1,4 +1,4 @@
-const kifAPI = axios.create({ baseURL: "http://178.128.60.247:3000" });
+const kifAPI = axios.create({ baseURL: "https://api.kif.fund" });
 
 const openMessage = function (message , type) {
     var blockMessage = document.getElementById('message')
