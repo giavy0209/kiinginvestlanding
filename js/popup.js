@@ -663,7 +663,6 @@ LoginForm.addEventListener("submit", (e) => {
                     img.alt = "icon";
 
                     let span = document.createElement("span");
-                    span.innerText = "Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu";
                     openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu' , 1)
                     navigateToForgotForm()
 
@@ -697,7 +696,6 @@ function checkValidAuthenticationForm() {
 }
 
 AuthenticationFormCode.addEventListener("keyup", () => {
-    checkValidAuthenticationForm();
 });
 
 AuthenticationForm.addEventListener("submit", (e) => {
@@ -762,7 +760,6 @@ AuthenticationForm.addEventListener("submit", (e) => {
                 img.alt = "icon";
 
                 let span = document.createElement("span");
-                span.innerText = "Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu";
                 openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu' , 1)
                 navigateToForgotForm()
 
