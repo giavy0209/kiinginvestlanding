@@ -488,7 +488,7 @@ function checkValidLoginForm() {
     }
 }
 
-(function checkLocalStorage() {
+function checkLocalStorage() {
     let emailLogin = localStorage.getItem("emailLogin");
     let passwordLogin = localStorage.getItem("passwordLogin");
     if (emailLogin && passwordLogin) {
@@ -496,7 +496,7 @@ function checkValidLoginForm() {
         LoginForm.elements["passwordLogin"].value = passwordLogin;
     }
     checkValidLoginForm();
-})();
+};
 
 LoginFormEmail.addEventListener("keyup", () => {
     checkValidLoginFormEmail();
