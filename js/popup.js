@@ -831,6 +831,21 @@ ForgotFormEmail.addEventListener("keyup", () => {
     checkValidForgotForm();
 });
 
+ForgotFormEmail.addEventListener("change", () => {
+    checkValidForgotFormEmail();
+    checkValidForgotForm();
+});
+
+ForgotFormEmail.addEventListener("keydown", () => {
+    checkValidForgotFormEmail();
+    checkValidForgotForm();
+});
+
+ForgotFormEmail.addEventListener("keypress", () => {
+    checkValidForgotFormEmail();
+    checkValidForgotForm();
+});
+
 ForgotForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
