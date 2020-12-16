@@ -226,3 +226,24 @@ input[type=number] {
 .kdg-column-5 .item:not(:nth-child(-n + 5)) {
     margin-top: 30px;
 }
+
+.img {
+    display: block;
+    position: relative;
+    width: 100%;
+    &.img-1-1::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+        background-color: transparent;
+    }
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+}
