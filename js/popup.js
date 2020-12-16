@@ -831,21 +831,6 @@ ForgotFormEmail.addEventListener("keyup", () => {
     checkValidForgotForm();
 });
 
-ForgotFormEmail.addEventListener("change", () => {
-    checkValidForgotFormEmail();
-    checkValidForgotForm();
-});
-
-ForgotFormEmail.addEventListener("keydown", () => {
-    checkValidForgotFormEmail();
-    checkValidForgotForm();
-});
-
-ForgotFormEmail.addEventListener("keypress", () => {
-    checkValidForgotFormEmail();
-    checkValidForgotForm();
-});
-
 ForgotForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -984,6 +969,26 @@ ResetFormPassword.addEventListener("keyup", () => {
 ResetFormCode.addEventListener("keyup", () => {
     checkValidResetForm();
 });
+
+
+ResetFormPassword.addEventListener("change", () => {
+    checkValidResetFormPassword();
+    checkValidResetForm();
+});
+
+ResetFormCode.addEventListener("change", () => {
+    checkValidResetForm();
+});
+
+ResetFormPassword.addEventListener("input", () => {
+    checkValidResetFormPassword();
+    checkValidResetForm();
+});
+
+ResetFormCode.addEventListener("input", () => {
+    checkValidResetForm();
+});
+
 
 ResetForm.addEventListener("submit", (e) => {
     e.preventDefault();
