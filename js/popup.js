@@ -1184,7 +1184,7 @@ if(search){
 }
 
 
-kifAPI.get('/home_data')
+kifAPI.get('/home_page_transactions')
 .then(res => {
     var data = res.data.data
     var marquee = document.querySelector('marquee')
@@ -1193,9 +1193,9 @@ kifAPI.get('/home_data')
         var d = new Date(el.create_date)
         html +=`
         <p class="${el.type === 22 ? 'draw' : 'invest'}">
-            ${el.user.email} - Đầu tư 
+            ${el.from.email} - ${el.type === 22 ? 'Rút lãi' : 'Đầu tư'} 
             <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span> 
-            - ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}/${d.getSeconds()}
+            - ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}
         </p>
         `
     })
