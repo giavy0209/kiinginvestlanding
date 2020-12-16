@@ -1182,3 +1182,23 @@ if(search){
     openRegForm()
     RegisterForm.elements['refcode'].value = search
 }
+
+
+kifAPI.get('/home_data')
+.then(res => {
+    var data = res.data.data
+    var marquee = document.querySelector('marquee')
+    var html = ``
+    data.forEach(el => {
+        var d = new Date(el.create_date)
+        html +=`
+        <p class="${el.type === 22 ? 'draw' : 'invest'}">
+            ${el.user.email} - Đầu tư 
+            <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span> 
+            - ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}/${d.getSeconds()}
+        </p>
+        `
+    })
+
+    marquee.insertAdjacentHTML('afterbegin',html)
+})
