@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/popup.css" />
     <meta property="og:image" content="/images/logo-header.png" itemprop="thumbnailUrl">
+    <meta property="og:description" content="King Investments Fund (KIF) là Quỹ đầu tư 4.0 được bảo trợ bởi tập đoàn K Capital Group tới từ Mỹ và Vương Quốc Anh." >
+    <meta property="description" content="King Investments Fund (KIF) là Quỹ đầu tư 4.0 được bảo trợ bởi tập đoàn K Capital Group tới từ Mỹ và Vương Quốc Anh." >
     <link rel="shortcut icon" href="/images/logo-header.png">
 </head>
 <body>
@@ -70,14 +72,20 @@
                         <div class="layout-2">
                             <div class="form-popup__control">
                                 <label for="password1">Mật khẩu</label>
-                                <input id="password1" type="password" name="password1" />
+                                <span class="input-container">
+                                    <input id="password1" type="password" name="password1" />
+                                    <img onclick="handleChangeEye(this)" src="/images/eye.svg" alt="eye">
+                                </span>
                             </div>
                             <div class="form-popup__control">
                                 <label for="password2">Xác nhận mật khẩu</label>
-                                <input id="password2" type="password" name="password2" />
+                                <span class="input-container">
+                                    <input id="password2" type="password" name="password2" />
+                                    <img onclick="handleChangeEye(this)" src="/images/eye.svg" alt="eye">
+                                </span>
                             </div>
                         </div>
-                        <div class="form-popup__control">
+                        <div style="margin-top: 20px;" class="form-popup__control">
                             <label for="refcode">Mã giới thiệu</label>
                             <input id="refcode" type="text" name="refcode" />
                         </div>
@@ -126,7 +134,10 @@
                         </div>
                         <div class="form-popup__control">
                             <label for="passwordLogin">Mật khẩu</label>
-                            <input id="passwordLogin" type="password" name="passwordLogin" />
+                            <span class="input-container">
+                                <input id="passwordLogin" type="password" name="passwordLogin" />
+                                <img onclick="handleChangeEye(this)" src="/images/eye.svg" alt="eye">
+                            </span>
                         </div>
                         <div class="form-popup__control checkbox" style="align-items: center;">
                             <input id="rememberLogin" type="checkbox" name="rememberLogin" checked />
@@ -200,7 +211,10 @@
                         </div>
                         <div class="form-popup__control">
                             <label for="password-reset">Mật khẩu mới</label>
-                            <input id="password-reset" type="password" name="password-reset" placeholder="Ít nhất 8 ký tự, bao gồm cả chữ và số" />
+                            <span class="input-container">
+                                <input id="password-reset" type="password" name="password-reset" placeholder="Ít nhất 8 ký tự, bao gồm cả chữ và số" />
+                                <img onclick="handleChangeEye(this)" src="/images/eye.svg" alt="eye">
+                            </span>
                         </div>
                         <div class="form-popup__control">
                             <label for="code-reset">Mã Code</label>

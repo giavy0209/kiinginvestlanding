@@ -220,7 +220,18 @@
                             user-select: none;
                             margin-bottom: 5px;
                         }
-
+                        .input-container{
+                            position: relative;
+                            width: 100%;
+                            img{
+                                position: absolute;
+                                top: 50%;
+                                right: 10px;
+                                transform: translate(0 , -50%);
+                                width: 20px;
+                                cursor: pointer;
+                            }
+                        }
                         input {
                             display: block;
                             width: 100%;

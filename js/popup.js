@@ -1,4 +1,4 @@
-const kifAPI = axios.create({ baseURL: "https://api.kifs.fund" });
+const kifAPI = axios.create({ baseURL: "https://api.kif.fund" });
 
 const openMessage = function (message , type) {
     var blockMessage = document.getElementById('message')
@@ -137,12 +137,12 @@ function checkValidRegisterFormEmail() {
 }
 
 function checkValidRegisterFormPassword1() {
-    let isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
+    let isValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/.test(
         RegisterForm.elements["password1"].value
     );
 
     if (!isValid) {
-        let errMes = RegisterFormPassword1.parentElement.querySelector(
+        let errMes = RegisterFormPassword1.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (errMes) return;
@@ -156,20 +156,20 @@ function checkValidRegisterFormPassword1() {
 
         let span = document.createElement("span");
         span.innerText =
-            "Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết thường, một số và một ký tự đặc biệt";
+            "Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt";
 
         p.appendChild(img);
         p.appendChild(span);
 
-        RegisterFormPassword1.parentElement.appendChild(p);
+        RegisterFormPassword1.parentElement.parentElement.appendChild(p);
         RegisterFormError.push("error");
     } else {
-        let errMes = RegisterFormPassword1.parentElement.querySelector(
+        let errMes = RegisterFormPassword1.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (!errMes) return;
 
-        RegisterFormPassword1.parentElement.removeChild(errMes);
+        RegisterFormPassword1.parentElement.parentElement.removeChild(errMes);
         RegisterFormError.pop();
     }
 }
@@ -180,7 +180,7 @@ function checkValidRegisterFormPassword2() {
         RegisterForm.elements["password2"].value;
 
     if (!isValid) {
-        let errMes = RegisterFormPassword2.parentElement.querySelector(
+        let errMes = RegisterFormPassword2.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (errMes) return;
@@ -198,15 +198,15 @@ function checkValidRegisterFormPassword2() {
         p.appendChild(img);
         p.appendChild(span);
 
-        RegisterFormPassword2.parentElement.appendChild(p);
+        RegisterFormPassword2.parentElement.parentElement.appendChild(p);
         RegisterFormError.push("error");
     } else {
-        let errMes = RegisterFormPassword2.parentElement.querySelector(
+        let errMes = RegisterFormPassword2.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (!errMes) return;
 
-        RegisterFormPassword2.parentElement.removeChild(errMes);
+        RegisterFormPassword2.parentElement.parentElement.removeChild(errMes);
         RegisterFormError.pop();
     }
 }
@@ -906,12 +906,12 @@ ForgotForm.addEventListener("submit", (e) => {
 
 // Begin Handle Reset Form
 function checkValidResetFormPassword() {
-    let isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
+    let isValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/.test(
         ResetForm.elements["password-reset"].value
     );
 
     if (!isValid) {
-        let errMes = ResetFormPassword.parentElement.querySelector(
+        let errMes = ResetFormPassword.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (errMes) return;
@@ -925,20 +925,20 @@ function checkValidResetFormPassword() {
 
         let span = document.createElement("span");
         span.innerText =
-            "Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết thường, một số và một ký tự đặc biệt";
+            "Mật khẩu yêu cầu tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt";
 
         p.appendChild(img);
         p.appendChild(span);
 
-        ResetFormPassword.parentElement.appendChild(p);
+        ResetFormPassword.parentElement.parentElement.appendChild(p);
         ResetFormError.push("error");
     } else {
-        let errMes = ResetFormPassword.parentElement.querySelector(
+        let errMes = ResetFormPassword.parentElement.parentElement.querySelector(
             ".error-message"
         );
         if (!errMes) return;
 
-        ResetFormPassword.parentElement.removeChild(errMes);
+        ResetFormPassword.parentElement.parentElement.removeChild(errMes);
         ResetFormError.pop();
     }
 }
@@ -1222,3 +1222,15 @@ kifAPI.get('/home_page_transactions')
 
     marquee.insertAdjacentHTML('afterbegin',html)
 })
+
+const handleChangeEye = function(e) {
+    var src = e.getAttribute('src')
+    var input = e.previousElementSibling
+    if(src.indexOf('eye-close') === -1) {
+        e.setAttribute('src', src.replace('eye', 'eye-close'))
+        input.setAttribute('type' , 'text')
+    }else{
+        e.setAttribute('src', src.replace('eye-close', 'eye'))
+        input.setAttribute('type' , 'password')
+    }
+}
