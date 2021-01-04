@@ -1199,6 +1199,10 @@ closeIcon.addEventListener('click', hidePopup);
 var search = window.location.search
 search = search.replace('?ref=' , '')
 if(search){
+    var ishavequery = search.indexOf('&')
+    if(ishavequery !== -1){
+        search = search.slice(0,search.indexOf('&'))
+    }
     openRegForm()
     RegisterForm.elements['refcode'].value = search
 }
