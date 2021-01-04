@@ -33,36 +33,40 @@ var smoothSroll = function (track,startX = 0, endX = 0, startY = 0, endY = 0 , d
 
 // currentLanguage = NULL
 
-// window.onload = function () {
-//     var currentLanguage = document.querySelector('.current-language')
-//     let inputCalc = document.getElementById('input-number')
-//     handleInputCalc(inputCalc)
+window.onload = function () {
+    var headerDOM = document.getElementById('header')
 
-//     inputCalc.addEventListener('focus', e => {
-//         e.target.value = ''
-//     })
+    headerDOM.insertAdjacentHTML('afterbegin' , header('vi'))
 
-//     document.addEventListener('click', e => {
-//         if
-//         (
-//             Array.from(currentLanguage.classList).indexOf('show') !== -1 &&
-//             !e.path.includes(currentLanguage)
-//         )
-//         {
-//             currentLanguage.classList.remove('show')
-//         }
-//     })
+    var currentLanguage = document.querySelector('.current-language')
+    let inputCalc = document.getElementById('input-number')
+    handleInputCalc(inputCalc)
 
-//     var showlanguage = function () {
-//         currentLanguage.addEventListener('click', function () {
-//             if (Array.from(this.classList).includes('show'))
-//                 this.classList.remove('show')
-//             else
-//                 this.classList.add('show')
-//         })
-//     }
-//     showlanguage()
-// }
+    inputCalc.addEventListener('focus', e => {
+        e.target.value = ''
+    })
+
+    document.addEventListener('click', e => {
+        if
+        (
+            Array.from(currentLanguage.classList).indexOf('show') !== -1 &&
+            !e.path.includes(currentLanguage)
+        )
+        {
+            currentLanguage.classList.remove('show')
+        }
+    })
+
+    var showlanguage = function () {
+        currentLanguage.addEventListener('click', function () {
+            if (Array.from(this.classList).includes('show'))
+                this.classList.remove('show')
+            else
+                this.classList.add('show')
+        })
+    }
+    showlanguage()
+}
 
 //slider
 var currentActive = 0
@@ -153,9 +157,9 @@ var showMenuButton = document.querySelector('.menu-icon')
 var showMenuFunc = function() {
     menuPage.classList.add('show-menu')
 }
-showMenuButton.addEventListener('click', e => {
-    showMenuFunc()
-})
+// showMenuButton.addEventListener('click', e => {
+//     showMenuFunc()
+// })
 
 // Close Menu
 var closeMenuButton = [
