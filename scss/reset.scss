@@ -19,7 +19,7 @@ li,
 a {
     list-style: none;
     text-decoration: none;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 }
 
 :focus {
@@ -27,7 +27,7 @@ a {
 }
 
 body {
-    background-image: linear-gradient(to bottom, #4EC365, #467FCE);
+    background-image: linear-gradient(to bottom, #4ec365, #467fce);
     font-family: SanFranciscoText;
 }
 
@@ -36,7 +36,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-input[type=number] {
+input[type='number'] {
     -moz-appearance: textfield;
 }
 
@@ -125,26 +125,26 @@ input[type=number] {
     margin-right: -15px;
 
     &.va-t {
-        >* {
+        > * {
             vertical-align: top;
         }
     }
 
     &.va-m {
-        >* {
+        > * {
             vertical-align: middle;
         }
     }
 
     &.va-b {
-        >* {
+        > * {
             vertical-align: bottom;
         }
     }
 }
 
-.kdg-row [class*="kdg-col-"],
-.kdg-row[class*="kdg-column-"] .item {
+.kdg-row [class*='kdg-col-'],
+.kdg-row[class*='kdg-column-'] .item {
     padding-left: 15px;
     padding-right: 15px;
     display: inline-block;
@@ -232,7 +232,7 @@ input[type=number] {
     position: relative;
     width: 100%;
     &.img-1-1::before {
-        content: "";
+        content: '';
         display: block;
         padding-top: 100%;
         background-color: transparent;
@@ -245,5 +245,39 @@ input[type=number] {
         height: 100%;
         -o-object-fit: cover;
         object-fit: cover;
+    }
+}
+
+@for $i from 1 through 100 {
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
+
+    .mb-#{$i} {
+        margin-bottom: #{$i}px;
+    }
+
+    .ml-#{$i} {
+        margin-left: #{$i}px;
+    }
+
+    .mr-#{$i} {
+        margin-right: #{$i}px;
+    }
+
+    .pt-#{$i} {
+        padding-top: #{$i}px;
+    }
+
+    .pb-#{$i} {
+        padding-bottom: #{$i}px;
+    }
+
+    .pl-#{$i} {
+        padding-left: #{$i}px;
+    }
+
+    .pr-#{$i} {
+        padding-right: #{$i}px;
     }
 }
