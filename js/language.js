@@ -796,15 +796,15 @@ const headerHTML = language => `
                         <span>EN</span>
                     </li>
                     <li onclick="changeLanguage('ja')">
-                        <img src="./images/language-ja.png" alt="" />
+                        <img src="./images/language-ja.svg" alt="" />
                         <span>JA</span>
                     </li>
                     <li onclick="changeLanguage('kr')">
-                        <img src="./images/language-kr.jpg" alt="" />
+                        <img src="./images/language-kr.svg" alt="" />
                         <span>KR</span>
                     </li>
                     <li onclick="changeLanguage('cn')">
-                        <img src="./images/language-cn.png" alt="" />
+                        <img src="./images/language-cn.svg" alt="" />
                         <span>CN</span>
                     </li>
                     <li onclick="changeLanguage('fr')">
