@@ -451,13 +451,10 @@ const eventSubmitLoginForm = e => {
             }
 
             if (response.data.status === 101) {
-                openMessage('Đã gửi mã vào email của bạn', 1);
-
                 AuthenticationForm.reset();
                 checkValidAuthenticationForm();
                 navigateToAuthenticationForm();
 
-                LoginForm.reset();
                 checkValidLoginForm();
             }
 
