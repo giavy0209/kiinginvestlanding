@@ -214,7 +214,7 @@
             color: #fff;
             padding: 0 30px;
             display: flex;
-            justify-content: space-between;
+            justify-content: start;
             flex-wrap: wrap;
 
             .lang {
@@ -223,9 +223,13 @@
                 cursor: pointer;
                 padding: 10px;
                 margin: 10px;
-
+                width: 25%;
+                text-align: center;
                 &.active {
                     color: #fde428;
+                }
+                img{
+                    width: 100%;
                 }
             }
         }

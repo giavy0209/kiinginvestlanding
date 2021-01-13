@@ -2,6 +2,10 @@ const kifAPI = axios.create({ baseURL: 'https://api.kif.fund' });
 
 const checklanguage = (language, objectLanguage) => objectLanguage[language];
 
+const listLanguages = [
+'vi' , 'en', 'ja' , 'kr' , 'cn', 'fr', 'es'
+]
+
 const popupHTML = language => `
     <div id="overlay" onclick="hidePopup()"></div>
     <div class="container-popup">
@@ -787,34 +791,14 @@ const headerHTML = language => `
                     es: 'ES',
                 })}</span>
                 <ul class="choose-language">
-                    <li onclick="changeLanguage('vi')">
-                        <img src="./images/language-vi.svg" alt="" />
-                        <span>VI</span>
-                    </li>
-                    <li onclick="changeLanguage('en')">
-                        <img src="./images/language-en.svg" alt="" />
-                        <span>EN</span>
-                    </li>
-                    <li onclick="changeLanguage('ja')">
-                        <img src="./images/language-ja.svg" alt="" />
-                        <span>JA</span>
-                    </li>
-                    <li onclick="changeLanguage('kr')">
-                        <img src="./images/language-kr.svg" alt="" />
-                        <span>KR</span>
-                    </li>
-                    <li onclick="changeLanguage('cn')">
-                        <img src="./images/language-cn.svg" alt="" />
-                        <span>CN</span>
-                    </li>
-                    <li onclick="changeLanguage('fr')">
-                        <img src="./images/language-fr.svg" alt="" />
-                        <span>FR</span>
-                    </li>
-                    <li onclick="changeLanguage('es')">
-                        <img src="./images/language-es.svg" alt="" />
-                        <span>ES</span>
-                    </li>
+                    ${
+                        listLanguages.map(_language => `
+                        <li onclick="changeLanguage('${_language}')">
+                            <img src="./images/language-${_language}.svg" alt="" />
+                            <span>${_language.toUpperCase()}</span>
+                        </li>
+                        `).join('')
+                    }
                 </ul>
             </div>
         </div>
@@ -890,27 +874,16 @@ const headerHTML = language => `
                 </button>
             </div>
             <div class="language mt-30">
-                <div class="lang ${
-                    language === 'vi' ? 'active' : ''
-                }" onclick="changeLanguage('vi')">VI</div>
-                <div class="lang ${
-                    language === 'en' ? 'active' : ''
-                }" onclick="changeLanguage('en')">EN</div>
-                <div class="lang ${
-                    language === 'ja' ? 'active' : ''
-                }" onclick="changeLanguage('ja')">JA</div>
-                <div class="lang ${
-                    language === 'kr' ? 'active' : ''
-                }" onclick="changeLanguage('kr')">KR</div>
-                <div class="lang ${
-                    language === 'cn' ? 'active' : ''
-                }" onclick="changeLanguage('cn')">CN</div>
-                <div class="lang ${
-                    language === 'fr' ? 'active' : ''
-                }" onclick="changeLanguage('fr')">FR</div>
-                <div class="lang ${
-                    language === 'es' ? 'active' : ''
-                }" onclick="changeLanguage('es')">ES</div>
+                ${
+                    listLanguages.map(_language => `
+                    <div 
+                    class="lang ${language === _language ? 'active' : ''}" 
+                    onclick="changeLanguage('${_language}')">
+                        ${_language.toUpperCase()}
+                        <img src="./images/language-${_language}.svg"/>
+                    </div>
+                    `).join('')
+                }
             </div>
             <div class="close-icon" onclick="hideMenuHeader()">
                 <img src="./images/close-icon.svg" />
