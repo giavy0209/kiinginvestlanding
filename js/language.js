@@ -1411,25 +1411,25 @@ const historyDOM = document.getElementById('history');
 const feelDOM = document.getElementById('feel');
 const footerDOM = document.getElementById('footer');
 
-popupDOM.insertAdjacentHTML('afterbegin', popupHTML('vi'));
-headerDOM.insertAdjacentHTML('afterbegin', headerHTML('vi'));
-calcDOM.insertAdjacentHTML('afterbegin', calcHTML('vi'));
-roadmapDOM.insertAdjacentHTML('afterbegin', roadmapHTML('vi'));
-historyDOM.insertAdjacentHTML('afterbegin', historyHTML('vi'));
-feelDOM.insertAdjacentHTML('afterbegin', feelHTML('vi'));
-footerDOM.insertAdjacentHTML('afterbegin', footerHTML('vi'));
-
-const openRegForm = () => {
-    let popup = document.querySelector('#popup');
-    let routeBtnRegister = document.querySelector('.route-popup__register');
-    let formRegister = document.querySelector('.form-register');
-
-    popup.classList.add('show');
-    routeBtnRegister.classList.add('active');
-    formRegister.classList.add('active');
-};
+// popupDOM.insertAdjacentHTML('afterbegin', popupHTML('vi'));
+// headerDOM.insertAdjacentHTML('afterbegin', headerHTML('vi'));
+// calcDOM.insertAdjacentHTML('afterbegin', calcHTML('vi'));
+// roadmapDOM.insertAdjacentHTML('afterbegin', roadmapHTML('vi'));
+// historyDOM.insertAdjacentHTML('afterbegin', historyHTML('vi'));
+// feelDOM.insertAdjacentHTML('afterbegin', feelHTML('vi'));
+// footerDOM.insertAdjacentHTML('afterbegin', footerHTML('vi'));
 
 const checkRefCode = () => {
+    
+    const openRegForm = () => {
+        let popup = document.querySelector('#popup');
+        let routeBtnRegister = document.querySelector('.route-popup__register');
+        let formRegister = document.querySelector('.form-register');
+    
+        popup.classList.add('show');
+        routeBtnRegister.classList.add('active');
+        formRegister.classList.add('active');
+    };
     var search = window.location.search;
     search = search.replace('?ref=', '');
     let RegisterForm = document.querySelector('form[name="form-register"]');
@@ -1444,31 +1444,102 @@ const checkRefCode = () => {
     }
 
 }
-checkRefCode()
-kifAPI.get('/home_page_transactions').then(res => {
-    var data = res.data.data;
-    var marquee = document.querySelector('marquee');
-    var html = ``;
-    data.forEach(el => {
-        var d = new Date(el.create_date);
-        html += `
-        <p class="${el.type === 22 ? 'draw' : 'invest'}">
-            ${el.from.email} - ${el.type === 22 ? 'Rút lãi' : 'Đầu tư'}
-            <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span>
-            - ${d.getDate()}/${
-            d.getMonth() + 1
-        }/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}
-        </p>
-        `;
-    });
 
-    marquee.insertAdjacentHTML('afterbegin', html);
-});
+// kifAPI.get('/home_page_transactions').then(res => {
+//     var data = res.data.data;
+//     var marquee = document.querySelector('marquee');
+//     var html = ``;
+//     data.forEach(el => {
+//         var d = new Date(el.create_date);
+//         html += `
+//         <p class="${el.type === 22 ? 'draw' : 'invest'}">
+//             ${el.from.email} - ${el.type === 22 ? 'Rút lãi' : 'Đầu tư'}
+//             <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span>
+//             - ${d.getDate()}/${
+//             d.getMonth() + 1
+//         }/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}
+//         </p>
+//         `;
+//     });
+
+//     marquee.insertAdjacentHTML('afterbegin', html);
+// });
+
+const changeLanguage = language => {
+    localStorage.setItem('lang' , JSON.stringify(language))
+    currentActive = 0;
+    currLanguage = language;
+    RegisterFormError = [];
+    LoginFormError = [];
+    AuthenticationFormError = [];
+    ForgotFormError = [];
+    ResetFormError = [];
+    // checkLocalStorage();
+
+    popupDOM.innerHTML = '';
+    headerDOM.innerHTML = '';
+    calcDOM.innerHTML = '';
+    roadmapDOM.innerHTML = '';
+    historyDOM.innerHTML = '';
+    feelDOM.innerHTML = '';
+    footerDOM.innerHTML = '';
+
+    popupDOM.insertAdjacentHTML('afterbegin', popupHTML(language));
+    headerDOM.insertAdjacentHTML('afterbegin', headerHTML(language));
+    calcDOM.insertAdjacentHTML('afterbegin', calcHTML(language));
+    roadmapDOM.insertAdjacentHTML('afterbegin', roadmapHTML(language));
+    historyDOM.insertAdjacentHTML('afterbegin', historyHTML(language));
+    feelDOM.insertAdjacentHTML('afterbegin', feelHTML(language));
+    footerDOM.insertAdjacentHTML('afterbegin', footerHTML(language));
+
+    checkRefCode()
+
+    kifAPI.get('/home_page_transactions').then(res => {
+        var data = res.data.data;
+        var marquee = document.querySelector('marquee');
+        var html = ``;
+        data.forEach(el => {
+            var d = new Date(el.create_date);
+            html += `
+            <p class="${el.type === 22 ? 'draw' : 'invest'}">
+                ${el.from.email} - ${
+                el.type === 22
+                    ? `${checklanguage(language, {
+                          vi: 'Rút lãi',
+                          en: 'Profit Withdrawal',
+                          ja: '利益の引き出し',
+                          kr: '이익 인출',
+                          cn: '利润提款',
+                          fr: 'Retrait des bénéfices',
+                          es: 'Retirar lucro',
+                      })}`
+                    : `${checklanguage(language, {
+                          vi: 'Đầu tư',
+                          en: 'Invest',
+                          ja: '投資する',
+                          kr: '투자',
+                          cn: '投资',
+                          fr: 'Investir',
+                          es: 'Invertir',
+                      })}`
+            }
+                <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span>
+                - ${d.getDate()}/${
+                d.getMonth() + 1
+            }/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}
+            </p>
+            `;
+        });
+
+        marquee.insertAdjacentHTML('afterbegin', html);
+    });
+};
 
 let currentActive = 0;
-let currLanguage = 'vi';
+let currLanguage = localStorage.getItem('lang') ? JSON.parse(localStorage.getItem('lang')) : 'en';
 let RegisterFormError = [];
 let LoginFormError = [];
 let AuthenticationFormError = [];
 let ForgotFormError = [];
 let ResetFormError = [];
+changeLanguage(currLanguage)
