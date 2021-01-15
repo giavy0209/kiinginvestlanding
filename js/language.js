@@ -1419,6 +1419,32 @@ historyDOM.insertAdjacentHTML('afterbegin', historyHTML('vi'));
 feelDOM.insertAdjacentHTML('afterbegin', feelHTML('vi'));
 footerDOM.insertAdjacentHTML('afterbegin', footerHTML('vi'));
 
+const openRegForm = () => {
+    let popup = document.querySelector('#popup');
+    let routeBtnRegister = document.querySelector('.route-popup__register');
+    let formRegister = document.querySelector('.form-register');
+
+    popup.classList.add('show');
+    routeBtnRegister.classList.add('active');
+    formRegister.classList.add('active');
+};
+
+const checkRefCode = () => {
+    var search = window.location.search;
+    search = search.replace('?ref=', '');
+    let RegisterForm = document.querySelector('form[name="form-register"]');
+    let RegisterFormRefCode = RegisterForm.querySelector('#refcode');
+    if (search) {
+        var ishavequery = search.indexOf('&');
+        if (ishavequery !== -1) {
+            search = search.slice(0, search.indexOf('&'));
+        }
+        RegisterFormRefCode.value = search;
+        openRegForm();
+    }
+
+}
+checkRefCode()
 kifAPI.get('/home_page_transactions').then(res => {
     var data = res.data.data;
     var marquee = document.querySelector('marquee');

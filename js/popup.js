@@ -829,14 +829,3 @@ const hidePopup = () => {
     containerRouteButtons.querySelector('[class*="active"]').classList.remove('active');
     containerForm.querySelector('[class*="active"]').classList.remove('active');
 };
-
-var search = window.location.search;
-search = search.replace('?ref=', '');
-if (search) {
-    var ishavequery = search.indexOf('&');
-    if (ishavequery !== -1) {
-        search = search.slice(0, search.indexOf('&'));
-    }
-    RegisterFormRefCode.value = search;
-    openRegForm();
-}

@@ -55,6 +55,8 @@ const clearValue = () => {
     handleInputCalc(inputCalc);
 };
 
+
+
 const changeLanguage = language => {
     currentActive = 0;
     currLanguage = language;
@@ -80,6 +82,8 @@ const changeLanguage = language => {
     historyDOM.insertAdjacentHTML('afterbegin', historyHTML(language));
     feelDOM.insertAdjacentHTML('afterbegin', feelHTML(language));
     footerDOM.insertAdjacentHTML('afterbegin', footerHTML(language));
+
+    checkRefCode()
 
     kifAPI.get('/home_page_transactions').then(res => {
         var data = res.data.data;
