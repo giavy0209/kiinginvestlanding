@@ -1411,14 +1411,6 @@ const historyDOM = document.getElementById('history');
 const feelDOM = document.getElementById('feel');
 const footerDOM = document.getElementById('footer');
 
-// popupDOM.insertAdjacentHTML('afterbegin', popupHTML('vi'));
-// headerDOM.insertAdjacentHTML('afterbegin', headerHTML('vi'));
-// calcDOM.insertAdjacentHTML('afterbegin', calcHTML('vi'));
-// roadmapDOM.insertAdjacentHTML('afterbegin', roadmapHTML('vi'));
-// historyDOM.insertAdjacentHTML('afterbegin', historyHTML('vi'));
-// feelDOM.insertAdjacentHTML('afterbegin', feelHTML('vi'));
-// footerDOM.insertAdjacentHTML('afterbegin', footerHTML('vi'));
-
 const checkRefCode = () => {
     
     const openRegForm = () => {
