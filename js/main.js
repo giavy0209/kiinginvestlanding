@@ -57,74 +57,7 @@ const clearValue = () => {
 
 
 
-const changeLanguage = language => {
-    currentActive = 0;
-    currLanguage = language;
-    RegisterFormError = [];
-    LoginFormError = [];
-    AuthenticationFormError = [];
-    ForgotFormError = [];
-    ResetFormError = [];
-    // checkLocalStorage();
 
-    popupDOM.innerHTML = '';
-    headerDOM.innerHTML = '';
-    calcDOM.innerHTML = '';
-    roadmapDOM.innerHTML = '';
-    historyDOM.innerHTML = '';
-    feelDOM.innerHTML = '';
-    footerDOM.innerHTML = '';
-
-    popupDOM.insertAdjacentHTML('afterbegin', popupHTML(language));
-    headerDOM.insertAdjacentHTML('afterbegin', headerHTML(language));
-    calcDOM.insertAdjacentHTML('afterbegin', calcHTML(language));
-    roadmapDOM.insertAdjacentHTML('afterbegin', roadmapHTML(language));
-    historyDOM.insertAdjacentHTML('afterbegin', historyHTML(language));
-    feelDOM.insertAdjacentHTML('afterbegin', feelHTML(language));
-    footerDOM.insertAdjacentHTML('afterbegin', footerHTML(language));
-
-    checkRefCode()
-
-    kifAPI.get('/home_page_transactions').then(res => {
-        var data = res.data.data;
-        var marquee = document.querySelector('marquee');
-        var html = ``;
-        data.forEach(el => {
-            var d = new Date(el.create_date);
-            html += `
-            <p class="${el.type === 22 ? 'draw' : 'invest'}">
-                ${el.from.email} - ${
-                el.type === 22
-                    ? `${checklanguage(language, {
-                          vi: 'Rút lãi',
-                          en: 'Profit Withdrawal',
-                          ja: '利益の引き出し',
-                          kr: '이익 인출',
-                          cn: '利润提款',
-                          fr: 'Retrait des bénéfices',
-                          es: 'Retirar lucro',
-                      })}`
-                    : `${checklanguage(language, {
-                          vi: 'Đầu tư',
-                          en: 'Invest',
-                          ja: '投資する',
-                          kr: '투자',
-                          cn: '投资',
-                          fr: 'Investir',
-                          es: 'Invertir',
-                      })}`
-            }
-                <span>$${Math.ceil(el.value_in_usdt * 100) / 100}</span>
-                - ${d.getDate()}/${
-                d.getMonth() + 1
-            }/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}
-            </p>
-            `;
-        });
-
-        marquee.insertAdjacentHTML('afterbegin', html);
-    });
-};
 
 var smoothSroll = function (track, startX = 0, endX = 0, startY = 0, endY = 0, duration) {
     return new Promise(function (resolve) {
