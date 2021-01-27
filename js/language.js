@@ -2,9 +2,7 @@ const kifAPI = axios.create({ baseURL: 'https://api.kif.fund' });
 
 const checklanguage = (language, objectLanguage) => objectLanguage[language];
 
-const listLanguages = [
-'vi' , 'en', 'ja' , 'kr' , 'cn', 'fr', 'es'
-]
+const listLanguages = ['vi', 'en', 'ja', 'kr', 'cn', 'fr', 'es'];
 
 const popupHTML = language => `
     <div id="overlay" onclick="hidePopup()"></div>
@@ -297,15 +295,15 @@ const popupHTML = language => `
                                 en:
                                     'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
                                 ja:
-                                    'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
+                                    '同意します <a href="./Termofuse.pdf" target="_blank">利用規約</a> | <a href="./Privacy-policy.pdf" target="_blank">プライバシー規約</a> KIFの.',
                                 kr:
-                                    'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
+                                    '나는 동의합니다 <a href="./Termofuse.pdf" target="_blank">약관과 정책</a> | <a href="./Privacy-policy.pdf" target="_blank">개인정보 보호 정책</a> KIF의.',
                                 cn:
-                                    'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
+                                    '我同意 <a href="./Termofuse.pdf" target="_blank">条款与条件</a> | <a href="./Privacy-policy.pdf" target="_blank">隐私政策</a> KIF的.',
                                 fr:
-                                    'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
+                                    'Je suis d\'accord avec <a href="./Termofuse.pdf" target="_blank">Termes et conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Politique de confidentialité</a> de King Investments Fund.',
                                 es:
-                                    'I have read and agree to <a href="./Termofuse.pdf" target="_blank">The terms and Conditions</a> | <a href="./Privacy-policy.pdf" target="_blank">Privacy policy</a> of King Investments Fund.',
+                                    'Estoy de acuerdo con <a href="./Termofuse.pdf" target="_blank">Terminos y Condiciones</a> | <a href="./Privacy-policy.pdf" target="_blank">Política de privacidad</a> de King Investments Fund.',
                             })}
                         </label>
                     </div>
@@ -486,8 +484,15 @@ const popupHTML = language => `
             <div class="form-popup form-authentication">
                 <div class="form-popup__title">
                     <p class="form-popup__title1">
-                        Đăng Nhập Với<br />
-                        Google Authentication Code
+                        ${checklanguage(language, {
+                            vi: 'Đăng Nhập Với<br />Google Authentication Code',
+                            en: 'Log In With<br />Google Authentication Code',
+                            ja: 'ログイン<br />Google認証コード',
+                            kr: '로 로그인<br />Google 인증코드',
+                            cn: '登入<br />谷歌的认证码',
+                            fr: 'Connectez-vous Avec<br />Code De Google Authentication',
+                            es: 'Iniciar Con<br />Código De Autenticación De Google',
+                        })}
                     </p>
                 </div>
                 <form
@@ -495,7 +500,15 @@ const popupHTML = language => `
                     onsubmit="return eventSubmitAuthenticationForm(event)"
                 >
                     <div class="form-popup__control">
-                        <label for="code-authentication">Mã Xác minh của Google</label>
+                        <label for="code-authentication">${checklanguage(language, {
+                            vi: 'Mã Xác minh của Google',
+                            en: 'Google Authentication Code',
+                            ja: 'Google認証コード',
+                            kr: 'Google 인증코드',
+                            cn: '谷歌的认证码',
+                            fr: 'Code de Google Authentication',
+                            es: 'Código de verificación de Google',
+                        })}</label>
                         <input
                             id="code-authentication" type="text" name="code-authentication"
                             onkeyup="checkValidAuthenticationForm()"
@@ -661,7 +674,15 @@ const popupHTML = language => `
                         })}</label>
                         <input
                             id="password-reset" type="password" name="password-reset"
-                            placeholder="Ít nhất 8 ký tự, bao gồm cả chữ và số"
+                            placeholder="${checklanguage(language, {
+                                vi: 'Ít nhất 8 ký tự, bao gồm cả chữ và số',
+                                en: 'At least 8 characters including letters and numbers',
+                                ja: '文字と数字を含む少なくとも8文字',
+                                kr: '문자와 숫자를 포함하여 8자 이상',
+                                cn: '至少8个字符,包括数字与字母',
+                                fr: 'Au moins 8 caractères, y compris des lettres et des chiffres',
+                                es: 'Al menos 8 caracteres, incluidas letras y numeros',
+                            })}"
                             onkeyup="eventKeyUpResetFormPassword()"
                             onfocus="eventKeyUpResetFormPassword()"
                             oninput="eventKeyUpResetFormPassword()"
@@ -750,11 +771,11 @@ const headerHTML = language => `
                     ${checklanguage(language, {
                         vi: 'TÌM HIỂU THÊM VỀ KIF <span>TẠI ĐÂY</span>',
                         en: 'KNOW MORE ABOUT KIF <span>HERE</span>',
-                        ja: 'KIFについて詳しくはこちら',
-                        kr: '여기서 KIF에 대해 알아보기',
-                        cn: '点击此以了解有关KIF的更多信息',
-                        fr: "Plus d'informations sur KIF ici",
-                        es: 'Más información sobre KIF aquí',
+                        ja: 'KIFについて詳しくは<span>こちら</span>',
+                        kr: 'KIF에 대한 더 알아보기 <span>여기</span>',
+                        cn: '了解关于KIF的更多信息<span>点击此处</span>',
+                        fr: 'En savoir plus sur KIF <span>ici</span>',
+                        es: 'MÁS INFORMACIÓN SOBRE KIF <span>AQUÍ</span>',
                     })}
                 </a>
                 <div id="login" onclick="openLoginForm()">
@@ -791,14 +812,16 @@ const headerHTML = language => `
                     es: 'ES',
                 })}</span>
                 <ul class="choose-language">
-                    ${
-                        listLanguages.map(_language => `
+                    ${listLanguages
+                        .map(
+                            _language => `
                         <li onclick="changeLanguage('${_language}')">
                             <img src="./images/language-${_language}.svg" alt="" />
                             <span>${_language.toUpperCase()}</span>
                         </li>
-                        `).join('')
-                    }
+                        `
+                        )
+                        .join('')}
                 </ul>
             </div>
         </div>
@@ -874,16 +897,18 @@ const headerHTML = language => `
                 </button>
             </div>
             <div class="language mt-30">
-                ${
-                    listLanguages.map(_language => `
+                ${listLanguages
+                    .map(
+                        _language => `
                     <div 
                     class="lang ${language === _language ? 'active' : ''}" 
                     onclick="changeLanguage('${_language}')">
                         ${_language.toUpperCase()}
                         <img src="./images/language-${_language}.svg"/>
                     </div>
-                    `).join('')
-                }
+                    `
+                    )
+                    .join('')}
             </div>
             <div class="close-icon" onclick="hideMenuHeader()">
                 <img src="./images/close-icon.svg" />
@@ -1442,9 +1467,8 @@ const checkRefCode = () => {
         RegisterFormRefCode.value = search;
         openRegForm();
     }
-
-}
-checkRefCode()
+};
+checkRefCode();
 kifAPI.get('/home_page_transactions').then(res => {
     var data = res.data.data;
     var marquee = document.querySelector('marquee');

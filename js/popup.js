@@ -195,12 +195,13 @@ const eventClickGetRegCodeByEmail = () => {
             openMessage(
                 checklanguage(currLanguage, {
                     vi: 'Lấy mã thành công! Vui lòng kiểm tra email!',
-                    en: 'Get code successfully! Please check your email!',
-                    ja: 'Get code successfully! Please check your email!',
-                    kr: 'Get code successfully! Please check your email!',
-                    cn: 'Get code successfully! Please check your email!',
-                    fr: 'Get code successfully! Please check your email!',
-                    es: 'Get code successfully! Please check your email!',
+                    en: 'Verification code has been successfully sent!',
+                    ja: '認証コードが送信されました',
+                    kr: '인증코드가 성공적으로 전송되었습니다. 이메일을 확인하세요',
+                    cn: '成功取码,请检查邮箱',
+                    fr: 'Le code de vérification a été envoyé',
+                    es:
+                        '¡Obtenga el código correctamente! ¡Por favor revise su correo electrónico!',
                 }),
                 1
             );
@@ -224,12 +225,12 @@ const eventClickGetRegCodeByEmail = () => {
             openMessage(
                 checklanguage(currLanguage, {
                     vi: 'Vui lòng chờ 2 phút trước khi nhận mã mới!',
-                    en: 'Please wait 2 minutes before get a new code!',
-                    ja: 'Please wait 2 minutes before get a new code!',
-                    kr: 'Please wait 2 minutes before get a new code!',
-                    cn: 'Please wait 2 minutes before get a new code!',
-                    fr: 'Please wait 2 minutes before get a new code!',
-                    es: 'Please wait 2 minutes before get a new code!',
+                    en: 'Please wait 2 minutes to get a new verification code!',
+                    ja: '新しい認証コードを取得するには、2分お待ちください。',
+                    kr: '새 인증코드를 받으려면 2분 정도 기다리십시오',
+                    cn: '请等2分钟来获取新的认证码',
+                    fr: 'Veuillez patienter 2 minutes avant de recevoir un nouveau code',
+                    es: '¡Espere 2 minutos antes de recibir el nuevo código!',
                 }),
                 0
             );
@@ -275,12 +276,12 @@ const eventSubmitRegisterForm = e => {
                 openMessage(
                     checklanguage(currLanguage, {
                         vi: 'Đăng ký thành công!',
-                        en: 'Register successfully!',
-                        ja: 'Register successfully!',
-                        kr: 'Register successfully!',
-                        cn: 'Register successfully!',
-                        fr: 'Register successfully!',
-                        es: 'Register successfully!',
+                        en: 'Registration successful!',
+                        ja: '登録に成功しました。',
+                        kr: '가입 성공',
+                        cn: '注册成功',
+                        fr: 'Inscription réussie',
+                        es: '¡Regístrese exitosamente!',
                     }),
                     1
                 );
@@ -297,12 +298,12 @@ const eventSubmitRegisterForm = e => {
                 openMessage(
                     checklanguage(currLanguage, {
                         vi: 'Đăng ký thất bại! Vui lòng thử lại!',
-                        en: 'Registration failed! Please try again!',
-                        ja: 'Registration failed! Please try again!',
-                        kr: 'Registration failed! Please try again!',
-                        cn: 'Registration failed! Please try again!',
-                        fr: 'Registration failed! Please try again!',
-                        es: 'Registration failed! Please try again!',
+                        en: 'Registration unsuccessful!',
+                        ja: '登録に失敗しました。',
+                        kr: '가입 실패. 다시 시도하세요',
+                        cn: '注册失败,请重新尝试',
+                        fr: 'Inscription réussie',
+                        es: '¡Registro fallido! ¡Inténtalo de nuevo!',
                     }),
                     0
                 );
@@ -429,12 +430,12 @@ const eventSubmitLoginForm = e => {
                 openMessage(
                     checklanguage(currLanguage, {
                         vi: 'Đăng nhập thành công!',
-                        en: 'Log In successfully!',
-                        ja: 'Log In successfully!',
-                        kr: 'Log In successfully!',
-                        cn: 'Log In successfully!',
-                        fr: 'Log In successfully!',
-                        es: 'Log In successfully!',
+                        en: 'Login successful!',
+                        ja: 'ログインに成功しました。',
+                        kr: '성공적으로 로그인했습니다',
+                        cn: '登录成功',
+                        fr: 'Connexion réussie',
+                        es: '¡Has iniciado sesión exitosamente!',
                     }),
                     1
                 );
@@ -447,7 +448,18 @@ const eventSubmitLoginForm = e => {
             }
 
             if (response.data.status === 100) {
-                openMessage('Email không tồn tại', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Email không tồn tại',
+                        en: "The email doesn't exist",
+                        ja: 'メールアドレスが存在しません。',
+                        kr: '이메일이 존재하지 않습니다',
+                        cn: '邮件地址不存在',
+                        fr: "L'adresse e-mail n'existe pas",
+                        es: 'El correo electrónico no existe',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 101) {
@@ -459,15 +471,52 @@ const eventSubmitLoginForm = e => {
             }
 
             if (response.data.status === 102) {
-                openMessage('Sai mật khẩu', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Sai mật khẩu',
+                        en: 'Wrong password',
+                        ja: 'パスワードが正しくありません。',
+                        kr: '비밀번호 틀렸습니다',
+                        cn: '密码错误',
+                        fr: 'Mot de passe incorrect',
+                        es: 'Contraseña incorrecta',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 104) {
-                openMessage('Tài khoản đã bị khóa', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Tài khoản đã bị khóa',
+                        en: 'The account has been locked',
+                        ja: 'アカウントはロックされています。',
+                        kr: '계정이 잠겼습니다',
+                        cn: '账号被封锁',
+                        fr: 'Le compte a été verrouillé',
+                        es: 'La cuenta está bloqueada',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 105) {
-                openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu', 1);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu',
+                        en:
+                            "It's been a long time you didn't change your password, please change it now",
+                        ja:
+                            'パスワードは長期間変更されていません。新しいパスワードに変更してください。',
+                        kr: '비밀번호를 변경하지 않은 지 오래되었습니다. 비밀번호를 변경하세요',
+                        cn: '已经很长时间没有更换密码,请更换新的密码',
+                        fr:
+                            "Cela fait longtemps que vous n'avez pas changé votre mot de passe! Veuillez le changer maintenant.",
+                        es:
+                            'Ha pasado mucho tiempo desde que cambió su contraseña. Por favor cambie su contraseña',
+                    }),
+                    1
+                );
 
                 ForgotForm.reset();
                 checkValidForgotForm();
@@ -535,11 +584,37 @@ const eventSubmitAuthenticationForm = e => {
             }
 
             if (response.data.status === 103) {
-                openMessage('Mã xác minh không đúng! Vui lòng nhập lại!', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Mã xác minh không đúng! Vui lòng nhập lại!',
+                        en: 'Wrong verification code, please try again!',
+                        ja: '認証コードが正しくありません。もう一度ご入力ください。',
+                        kr: '잘못된 인증코드. 다시 입력하세요',
+                        cn: '认证码错误,请重新填入',
+                        fr: 'Le code de vérification est incorrect! Veuillez réentrer!',
+                        es: '¡El código de verificación es incorrecto! ¡Vuelve a ingresar!',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 105) {
-                openMessage('Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu', 1);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Đã lâu bạn chưa đổi mật khẩu!! Vui lòng đổi mật khẩu',
+                        en:
+                            "It's been a long time you didn't change your password, please change it now",
+                        ja:
+                            'パスワードは長期間変更されていません。新しいパスワードに変更してください。',
+                        kr: '비밀번호를 변경하지 않은 지 오래되었습니다. 비밀번호를 변경하세요',
+                        cn: '已经很长时间没有更换密码,请更换新的密码',
+                        fr:
+                            "Cela fait longtemps que vous n'avez pas changé votre mot de passe! Veuillez le changer maintenant.",
+                        es:
+                            'Ha pasado mucho tiempo desde que cambió su contraseña. Por favor cambie su contraseña',
+                    }),
+                    1
+                );
 
                 ForgotForm.reset();
                 checkValidForgotForm();
@@ -604,7 +679,18 @@ const eventSubmitForgotForm = e => {
         })
         .then(function (response) {
             if (response.data.status === 101) {
-                openMessage('Email không tồn tại', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Email không tồn tại',
+                        en: "The email doesn't exist",
+                        ja: 'メールアドレスが存在しません。',
+                        kr: '이메일이 존재하지 않습니다',
+                        cn: '邮件地址不存在',
+                        fr: "L'adresse e-mail n'existe pas",
+                        es: 'El correo electrónico no existe',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 102) {
@@ -612,7 +698,18 @@ const eventSubmitForgotForm = e => {
             }
 
             if (response.data.status === 1) {
-                openMessage('Đã gửi mã vào email của bạn', 1);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Đã gửi mã vào email của bạn',
+                        en: 'The verification code has been sent to your email',
+                        ja: 'メールアドレスに認証コードが送信されました',
+                        kr: '인증코드가 이메일로 전송되었습니다',
+                        cn: '已给您的邮件地址发送了认证码',
+                        fr: 'Le code a été envoyé à votre adresse e-mail',
+                        es: 'Enviado código a tu correo electrónico',
+                    }),
+                    1
+                );
 
                 ResetForm.reset();
                 ResetFormEmail.value = ForgotFormEmail.value;
@@ -693,19 +790,63 @@ const eventSubmitResetForm = e => {
         })
         .then(function (response) {
             if (response.data.status === 101) {
-                openMessage('Email không tồn tại', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Email không tồn tại',
+                        en: "The email doesn't exist",
+                        ja: 'メールアドレスが存在しません。',
+                        kr: '이메일이 존재하지 않습니다',
+                        cn: '邮件地址不存在',
+                        fr: "L'adresse e-mail n'existe pas",
+                        es: 'El correo electrónico no existe',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 102) {
-                openMessage('Mã sai', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Mã sai',
+                        en: 'Wrong verification code.',
+                        ja: '認証コードが正しくありません。',
+                        kr: '인증코드 틀렸습니다',
+                        cn: '认证码错误',
+                        fr: 'Mauvais code de vérification',
+                        es: 'Codigo erroneo',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 103) {
-                openMessage('Mật khẩu mới không được giống mật khẩu cũ', 0);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Mật khẩu mới không được giống mật khẩu cũ',
+                        en: 'The new password must differ from your previous password',
+                        ja: '新しいパスワードは以前のパスワードと異なる必要があります。',
+                        kr: '새 비밀번호는 이전 비밀번호와 달라야합니다',
+                        cn: '新密码必须跟旧密码不同',
+                        fr: "Le nouveau mot de passe ne peut pas être le même que l'ancien",
+                        es: 'La nueva contraseña no puede ser la misma que la antigua',
+                    }),
+                    0
+                );
             }
 
             if (response.data.status === 1) {
-                openMessage('Đổi mật khẩu thành công!', 1);
+                openMessage(
+                    checklanguage(currLanguage, {
+                        vi: 'Đổi mật khẩu thành công!',
+                        en: 'Password has been changed successfully',
+                        ja: 'パスワードが変更されました。',
+                        kr: '비밀번호를 성공적으로 변경되었습니다',
+                        cn: '更换密码成功',
+                        fr: 'Le mot de passe a été changé',
+                        es: '¡Contraseña cambiada exitosamente!',
+                    }),
+                    1
+                );
 
                 LoginForm.reset();
                 LoginFormEmail.value = ResetFormEmail.value;
