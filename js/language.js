@@ -1436,30 +1436,6 @@ const historyDOM = document.getElementById('history');
 const feelDOM = document.getElementById('feel');
 const footerDOM = document.getElementById('footer');
 
-const checkRefCode = () => {
-    const openRegForm = () => {
-        let popup = document.querySelector('#popup');
-        let routeBtnRegister = document.querySelector('.route-popup__register');
-        let formRegister = document.querySelector('.form-register');
-
-        popup.classList.add('show');
-        routeBtnRegister.classList.add('active');
-        formRegister.classList.add('active');
-    };
-    var search = window.location.search;
-    search = search.replace('?ref=', '');
-    let RegisterForm = document.querySelector('form[name="form-register"]');
-    let RegisterFormRefCode = RegisterForm.querySelector('#refcode');
-    if (search) {
-        var ishavequery = search.indexOf('&');
-        if (ishavequery !== -1) {
-            search = search.slice(0, search.indexOf('&'));
-        }
-        RegisterFormRefCode.value = search;
-        openRegForm();
-    }
-};
-checkRefCode();
 kifAPI.get('/home_page_transactions').then(res => {
     var data = res.data.data;
     var marquee = document.querySelector('marquee');
@@ -1496,6 +1472,29 @@ kifAPI.get('/home_page_transactions').then(res => {
 
 //     marquee.insertAdjacentHTML('afterbegin', html);
 // });
+const checkRefCode = () => {
+    const openRegForm = () => {
+        let popup = document.querySelector('#popup');
+        let routeBtnRegister = document.querySelector('.route-popup__register');
+        let formRegister = document.querySelector('.form-register');
+
+        popup.classList.add('show');
+        routeBtnRegister.classList.add('active');
+        formRegister.classList.add('active');
+    };
+    var search = window.location.search;
+    search = search.replace('?ref=', '');
+    let RegisterForm = document.querySelector('form[name="form-register"]');
+    let RegisterFormRefCode = RegisterForm.querySelector('#refcode');
+    if (search) {
+        var ishavequery = search.indexOf('&');
+        if (ishavequery !== -1) {
+            search = search.slice(0, search.indexOf('&'));
+        }
+        RegisterFormRefCode.value = search;
+        openRegForm();
+    }
+};
 
 const changeLanguage = language => {
     localStorage.setItem('lang', JSON.stringify(language));
@@ -1575,3 +1574,7 @@ let AuthenticationFormError = [];
 let ForgotFormError = [];
 let ResetFormError = [];
 changeLanguage(currLanguage);
+
+
+
+checkRefCode();
