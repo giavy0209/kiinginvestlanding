@@ -35,8 +35,8 @@
 // let RegisterFormSubmitButton = RegisterForm.querySelector('button[type="submit"]');
 
 // let LoginFormError = [];
-// let LoginForm = document.querySelector('form[name="form-login"]');
-// let LoginFormEmail = LoginForm.querySelector('#email-login');
+let LoginForm = document.querySelector('form[name="form-login"]');
+let LoginFormEmail = LoginForm.querySelector('#email-login');
 // let LoginFormPassword = LoginForm.querySelector('#password-login');
 // let LoginFormRemember = LoginForm.querySelector('#remember-login');
 // let LoginFormSubmitButton = LoginForm.querySelector('button[type="submit"]');
@@ -263,6 +263,11 @@ const eventSubmitRegisterForm = e => {
     let RegisterFormPassword1 = RegisterForm.querySelector('#password1');
     let RegisterFormRefCode = RegisterForm.querySelector('#refcode');
     let RegisterFormRegCode = RegisterForm.querySelector('#regcode');
+    LoginForm.reset();
+    LoginFormEmail.value = RegisterFormEmail.value;
+    checkValidLoginFormEmail();
+    checkValidLoginForm();
+    navigateToLoginForm();
 
     kifAPI
         .post('/user', {
